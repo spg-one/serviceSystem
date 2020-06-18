@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <!--Official Plugins-->
+        <!--Generate equals and hash code-->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://49.4.11.96:3306/medical_service?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false"
+                        userId="root"
+                        password="qAz@=75*3!">
+            <property name="useInformationSchema" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.adufeitian.servicesystem.mybatis.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/mybatis">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.adufeitian.servicesystem.mybatis.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="complain_infor" domainObjectName="ComplainInfor">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="id" javaType="java.lang.Long"/>
+        </table>
+        <table tableName="servicec_large_category" domainObjectName="ServicecLargeCategory">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="id" javaType="java.lang.Long"/>
+        </table>
+        <table tableName="service_infor" domainObjectName="ServiceInfor">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="id" javaType="java.lang.Long"/>
+        </table>
+        <table tableName="service_small_category" domainObjectName="ServiceSmallCategory">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="id" javaType="java.lang.Long"/>
+        </table>
+    </context>
+</generatorConfiguration>
