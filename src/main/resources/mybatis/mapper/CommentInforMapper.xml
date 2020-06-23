@@ -351,4 +351,2104 @@
       comment_infor = #{commentInfor,jdbcType=VARCHAR}
     where order_number = #{orderNumber,jdbcType=VARCHAR}
   </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    <id column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
+    <result column="urgency" jdbcType="CHAR" property="urgency" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="service_LC_name" jdbcType="VARCHAR" property="serviceLcName" />
+    <result column="service_SC_name" jdbcType="VARCHAR" property="serviceScName" />
+    <result column="service_AC_name" jdbcType="VARCHAR" property="serviceAcName" />
+    <result column="service_personname" jdbcType="VARCHAR" property="servicePersonname" />
+    <result column="service_personphone" jdbcType="VARCHAR" property="servicePersonphone" />
+    <result column="deal_data" jdbcType="TIMESTAMP" property="dealData" />
+    <result column="deal_state" jdbcType="CHAR" property="dealState" />
+    <result column="service_comment" jdbcType="CHAR" property="serviceComment" />
+    <result column="comment_infor" jdbcType="VARCHAR" property="commentInfor" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_number, servicer_id, urgency, customer_name, phone, service_LC_name, service_SC_name, 
+    service_AC_name, service_personname, service_personphone, deal_data, deal_state, 
+    service_comment, comment_infor
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample">
+    delete from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor (order_number, servicer_id, urgency, 
+      customer_name, phone, service_LC_name, 
+      service_SC_name, service_AC_name, service_personname, 
+      service_personphone, deal_data, deal_state, 
+      service_comment, comment_infor)
+    values (#{orderNumber,jdbcType=VARCHAR}, #{servicerId,jdbcType=INTEGER}, #{urgency,jdbcType=CHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{serviceLcName,jdbcType=VARCHAR}, 
+      #{serviceScName,jdbcType=VARCHAR}, #{serviceAcName,jdbcType=VARCHAR}, #{servicePersonname,jdbcType=VARCHAR}, 
+      #{servicePersonphone,jdbcType=VARCHAR}, #{dealData,jdbcType=TIMESTAMP}, #{dealState,jdbcType=CHAR}, 
+      #{serviceComment,jdbcType=CHAR}, #{commentInfor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="servicerId != null">
+        servicer_id,
+      </if>
+      <if test="urgency != null">
+        urgency,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name,
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name,
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name,
+      </if>
+      <if test="servicePersonname != null">
+        service_personname,
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone,
+      </if>
+      <if test="dealData != null">
+        deal_data,
+      </if>
+      <if test="dealState != null">
+        deal_state,
+      </if>
+      <if test="serviceComment != null">
+        service_comment,
+      </if>
+      <if test="commentInfor != null">
+        comment_infor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerId != null">
+        #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultType="java.lang.Long">
+    select count(*) from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment_infor
+    <set>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicerId != null">
+        servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.urgency != null">
+        urgency = #{record.urgency,jdbcType=CHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLcName != null">
+        service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceScName != null">
+        service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceAcName != null">
+        service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonname != null">
+        service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonphone != null">
+        service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealData != null">
+        deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealState != null">
+        deal_state = #{record.dealState,jdbcType=CHAR},
+      </if>
+      <if test="record.serviceComment != null">
+        service_comment = #{record.serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="record.commentInfor != null">
+        comment_infor = #{record.commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment_infor
+    set order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      urgency = #{record.urgency,jdbcType=CHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      deal_state = #{record.dealState,jdbcType=CHAR},
+      service_comment = #{record.serviceComment,jdbcType=CHAR},
+      comment_infor = #{record.commentInfor,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    <set>
+      <if test="servicerId != null">
+        servicer_id = #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        urgency = #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        deal_data = #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        service_comment = #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        comment_infor = #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    set servicer_id = #{servicerId,jdbcType=INTEGER},
+      urgency = #{urgency,jdbcType=CHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{dealData,jdbcType=TIMESTAMP},
+      deal_state = #{dealState,jdbcType=CHAR},
+      service_comment = #{serviceComment,jdbcType=CHAR},
+      comment_infor = #{commentInfor,jdbcType=VARCHAR}
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    <id column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
+    <result column="urgency" jdbcType="CHAR" property="urgency" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="service_LC_name" jdbcType="VARCHAR" property="serviceLcName" />
+    <result column="service_SC_name" jdbcType="VARCHAR" property="serviceScName" />
+    <result column="service_AC_name" jdbcType="VARCHAR" property="serviceAcName" />
+    <result column="service_personname" jdbcType="VARCHAR" property="servicePersonname" />
+    <result column="service_personphone" jdbcType="VARCHAR" property="servicePersonphone" />
+    <result column="deal_data" jdbcType="TIMESTAMP" property="dealData" />
+    <result column="deal_state" jdbcType="CHAR" property="dealState" />
+    <result column="service_comment" jdbcType="CHAR" property="serviceComment" />
+    <result column="comment_infor" jdbcType="VARCHAR" property="commentInfor" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_number, servicer_id, urgency, customer_name, phone, service_LC_name, service_SC_name, 
+    service_AC_name, service_personname, service_personphone, deal_data, deal_state, 
+    service_comment, comment_infor
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample">
+    delete from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor (order_number, servicer_id, urgency, 
+      customer_name, phone, service_LC_name, 
+      service_SC_name, service_AC_name, service_personname, 
+      service_personphone, deal_data, deal_state, 
+      service_comment, comment_infor)
+    values (#{orderNumber,jdbcType=VARCHAR}, #{servicerId,jdbcType=INTEGER}, #{urgency,jdbcType=CHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{serviceLcName,jdbcType=VARCHAR}, 
+      #{serviceScName,jdbcType=VARCHAR}, #{serviceAcName,jdbcType=VARCHAR}, #{servicePersonname,jdbcType=VARCHAR}, 
+      #{servicePersonphone,jdbcType=VARCHAR}, #{dealData,jdbcType=TIMESTAMP}, #{dealState,jdbcType=CHAR}, 
+      #{serviceComment,jdbcType=CHAR}, #{commentInfor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="servicerId != null">
+        servicer_id,
+      </if>
+      <if test="urgency != null">
+        urgency,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name,
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name,
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name,
+      </if>
+      <if test="servicePersonname != null">
+        service_personname,
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone,
+      </if>
+      <if test="dealData != null">
+        deal_data,
+      </if>
+      <if test="dealState != null">
+        deal_state,
+      </if>
+      <if test="serviceComment != null">
+        service_comment,
+      </if>
+      <if test="commentInfor != null">
+        comment_infor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerId != null">
+        #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultType="java.lang.Long">
+    select count(*) from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment_infor
+    <set>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicerId != null">
+        servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.urgency != null">
+        urgency = #{record.urgency,jdbcType=CHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLcName != null">
+        service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceScName != null">
+        service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceAcName != null">
+        service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonname != null">
+        service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonphone != null">
+        service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealData != null">
+        deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealState != null">
+        deal_state = #{record.dealState,jdbcType=CHAR},
+      </if>
+      <if test="record.serviceComment != null">
+        service_comment = #{record.serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="record.commentInfor != null">
+        comment_infor = #{record.commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment_infor
+    set order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      urgency = #{record.urgency,jdbcType=CHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      deal_state = #{record.dealState,jdbcType=CHAR},
+      service_comment = #{record.serviceComment,jdbcType=CHAR},
+      comment_infor = #{record.commentInfor,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    <set>
+      <if test="servicerId != null">
+        servicer_id = #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        urgency = #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        deal_data = #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        service_comment = #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        comment_infor = #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    set servicer_id = #{servicerId,jdbcType=INTEGER},
+      urgency = #{urgency,jdbcType=CHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{dealData,jdbcType=TIMESTAMP},
+      deal_state = #{dealState,jdbcType=CHAR},
+      service_comment = #{serviceComment,jdbcType=CHAR},
+      comment_infor = #{commentInfor,jdbcType=VARCHAR}
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    <id column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
+    <result column="urgency" jdbcType="CHAR" property="urgency" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="service_LC_name" jdbcType="VARCHAR" property="serviceLcName" />
+    <result column="service_SC_name" jdbcType="VARCHAR" property="serviceScName" />
+    <result column="service_AC_name" jdbcType="VARCHAR" property="serviceAcName" />
+    <result column="service_personname" jdbcType="VARCHAR" property="servicePersonname" />
+    <result column="service_personphone" jdbcType="VARCHAR" property="servicePersonphone" />
+    <result column="deal_data" jdbcType="TIMESTAMP" property="dealData" />
+    <result column="deal_state" jdbcType="CHAR" property="dealState" />
+    <result column="service_comment" jdbcType="CHAR" property="serviceComment" />
+    <result column="comment_infor" jdbcType="VARCHAR" property="commentInfor" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_number, servicer_id, urgency, customer_name, phone, service_LC_name, service_SC_name, 
+    service_AC_name, service_personname, service_personphone, deal_data, deal_state, 
+    service_comment, comment_infor
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample">
+    delete from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor (order_number, servicer_id, urgency, 
+      customer_name, phone, service_LC_name, 
+      service_SC_name, service_AC_name, service_personname, 
+      service_personphone, deal_data, deal_state, 
+      service_comment, comment_infor)
+    values (#{orderNumber,jdbcType=VARCHAR}, #{servicerId,jdbcType=INTEGER}, #{urgency,jdbcType=CHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{serviceLcName,jdbcType=VARCHAR}, 
+      #{serviceScName,jdbcType=VARCHAR}, #{serviceAcName,jdbcType=VARCHAR}, #{servicePersonname,jdbcType=VARCHAR}, 
+      #{servicePersonphone,jdbcType=VARCHAR}, #{dealData,jdbcType=TIMESTAMP}, #{dealState,jdbcType=CHAR}, 
+      #{serviceComment,jdbcType=CHAR}, #{commentInfor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="servicerId != null">
+        servicer_id,
+      </if>
+      <if test="urgency != null">
+        urgency,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name,
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name,
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name,
+      </if>
+      <if test="servicePersonname != null">
+        service_personname,
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone,
+      </if>
+      <if test="dealData != null">
+        deal_data,
+      </if>
+      <if test="dealState != null">
+        deal_state,
+      </if>
+      <if test="serviceComment != null">
+        service_comment,
+      </if>
+      <if test="commentInfor != null">
+        comment_infor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerId != null">
+        #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultType="java.lang.Long">
+    select count(*) from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment_infor
+    <set>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicerId != null">
+        servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.urgency != null">
+        urgency = #{record.urgency,jdbcType=CHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLcName != null">
+        service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceScName != null">
+        service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceAcName != null">
+        service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonname != null">
+        service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonphone != null">
+        service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealData != null">
+        deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealState != null">
+        deal_state = #{record.dealState,jdbcType=CHAR},
+      </if>
+      <if test="record.serviceComment != null">
+        service_comment = #{record.serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="record.commentInfor != null">
+        comment_infor = #{record.commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment_infor
+    set order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      urgency = #{record.urgency,jdbcType=CHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      deal_state = #{record.dealState,jdbcType=CHAR},
+      service_comment = #{record.serviceComment,jdbcType=CHAR},
+      comment_infor = #{record.commentInfor,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    <set>
+      <if test="servicerId != null">
+        servicer_id = #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        urgency = #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        deal_data = #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        service_comment = #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        comment_infor = #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    set servicer_id = #{servicerId,jdbcType=INTEGER},
+      urgency = #{urgency,jdbcType=CHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{dealData,jdbcType=TIMESTAMP},
+      deal_state = #{dealState,jdbcType=CHAR},
+      service_comment = #{serviceComment,jdbcType=CHAR},
+      comment_infor = #{commentInfor,jdbcType=VARCHAR}
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    <id column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
+    <result column="urgency" jdbcType="CHAR" property="urgency" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="service_LC_name" jdbcType="VARCHAR" property="serviceLcName" />
+    <result column="service_SC_name" jdbcType="VARCHAR" property="serviceScName" />
+    <result column="service_AC_name" jdbcType="VARCHAR" property="serviceAcName" />
+    <result column="service_personname" jdbcType="VARCHAR" property="servicePersonname" />
+    <result column="service_personphone" jdbcType="VARCHAR" property="servicePersonphone" />
+    <result column="deal_data" jdbcType="TIMESTAMP" property="dealData" />
+    <result column="deal_state" jdbcType="CHAR" property="dealState" />
+    <result column="service_comment" jdbcType="CHAR" property="serviceComment" />
+    <result column="comment_infor" jdbcType="VARCHAR" property="commentInfor" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_number, servicer_id, urgency, customer_name, phone, service_LC_name, service_SC_name, 
+    service_AC_name, service_personname, service_personphone, deal_data, deal_state, 
+    service_comment, comment_infor
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample">
+    delete from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor (order_number, servicer_id, urgency, 
+      customer_name, phone, service_LC_name, 
+      service_SC_name, service_AC_name, service_personname, 
+      service_personphone, deal_data, deal_state, 
+      service_comment, comment_infor)
+    values (#{orderNumber,jdbcType=VARCHAR}, #{servicerId,jdbcType=INTEGER}, #{urgency,jdbcType=CHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{serviceLcName,jdbcType=VARCHAR}, 
+      #{serviceScName,jdbcType=VARCHAR}, #{serviceAcName,jdbcType=VARCHAR}, #{servicePersonname,jdbcType=VARCHAR}, 
+      #{servicePersonphone,jdbcType=VARCHAR}, #{dealData,jdbcType=TIMESTAMP}, #{dealState,jdbcType=CHAR}, 
+      #{serviceComment,jdbcType=CHAR}, #{commentInfor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="servicerId != null">
+        servicer_id,
+      </if>
+      <if test="urgency != null">
+        urgency,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name,
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name,
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name,
+      </if>
+      <if test="servicePersonname != null">
+        service_personname,
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone,
+      </if>
+      <if test="dealData != null">
+        deal_data,
+      </if>
+      <if test="dealState != null">
+        deal_state,
+      </if>
+      <if test="serviceComment != null">
+        service_comment,
+      </if>
+      <if test="commentInfor != null">
+        comment_infor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerId != null">
+        #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultType="java.lang.Long">
+    select count(*) from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment_infor
+    <set>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicerId != null">
+        servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.urgency != null">
+        urgency = #{record.urgency,jdbcType=CHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLcName != null">
+        service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceScName != null">
+        service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceAcName != null">
+        service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonname != null">
+        service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonphone != null">
+        service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealData != null">
+        deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealState != null">
+        deal_state = #{record.dealState,jdbcType=CHAR},
+      </if>
+      <if test="record.serviceComment != null">
+        service_comment = #{record.serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="record.commentInfor != null">
+        comment_infor = #{record.commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment_infor
+    set order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      urgency = #{record.urgency,jdbcType=CHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      deal_state = #{record.dealState,jdbcType=CHAR},
+      service_comment = #{record.serviceComment,jdbcType=CHAR},
+      comment_infor = #{record.commentInfor,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    <set>
+      <if test="servicerId != null">
+        servicer_id = #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        urgency = #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        deal_data = #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        service_comment = #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        comment_infor = #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    set servicer_id = #{servicerId,jdbcType=INTEGER},
+      urgency = #{urgency,jdbcType=CHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{dealData,jdbcType=TIMESTAMP},
+      deal_state = #{dealState,jdbcType=CHAR},
+      service_comment = #{serviceComment,jdbcType=CHAR},
+      comment_infor = #{commentInfor,jdbcType=VARCHAR}
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    <id column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
+    <result column="urgency" jdbcType="CHAR" property="urgency" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="service_LC_name" jdbcType="VARCHAR" property="serviceLcName" />
+    <result column="service_SC_name" jdbcType="VARCHAR" property="serviceScName" />
+    <result column="service_AC_name" jdbcType="VARCHAR" property="serviceAcName" />
+    <result column="service_personname" jdbcType="VARCHAR" property="servicePersonname" />
+    <result column="service_personphone" jdbcType="VARCHAR" property="servicePersonphone" />
+    <result column="deal_data" jdbcType="TIMESTAMP" property="dealData" />
+    <result column="deal_state" jdbcType="CHAR" property="dealState" />
+    <result column="service_comment" jdbcType="CHAR" property="serviceComment" />
+    <result column="comment_infor" jdbcType="VARCHAR" property="commentInfor" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_number, servicer_id, urgency, customer_name, phone, service_LC_name, service_SC_name, 
+    service_AC_name, service_personname, service_personphone, deal_data, deal_state, 
+    service_comment, comment_infor
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample">
+    delete from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor (order_number, servicer_id, urgency, 
+      customer_name, phone, service_LC_name, 
+      service_SC_name, service_AC_name, service_personname, 
+      service_personphone, deal_data, deal_state, 
+      service_comment, comment_infor)
+    values (#{orderNumber,jdbcType=VARCHAR}, #{servicerId,jdbcType=INTEGER}, #{urgency,jdbcType=CHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{serviceLcName,jdbcType=VARCHAR}, 
+      #{serviceScName,jdbcType=VARCHAR}, #{serviceAcName,jdbcType=VARCHAR}, #{servicePersonname,jdbcType=VARCHAR}, 
+      #{servicePersonphone,jdbcType=VARCHAR}, #{dealData,jdbcType=TIMESTAMP}, #{dealState,jdbcType=CHAR}, 
+      #{serviceComment,jdbcType=CHAR}, #{commentInfor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="servicerId != null">
+        servicer_id,
+      </if>
+      <if test="urgency != null">
+        urgency,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name,
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name,
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name,
+      </if>
+      <if test="servicePersonname != null">
+        service_personname,
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone,
+      </if>
+      <if test="dealData != null">
+        deal_data,
+      </if>
+      <if test="dealState != null">
+        deal_state,
+      </if>
+      <if test="serviceComment != null">
+        service_comment,
+      </if>
+      <if test="commentInfor != null">
+        comment_infor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerId != null">
+        #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultType="java.lang.Long">
+    select count(*) from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment_infor
+    <set>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicerId != null">
+        servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.urgency != null">
+        urgency = #{record.urgency,jdbcType=CHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLcName != null">
+        service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceScName != null">
+        service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceAcName != null">
+        service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonname != null">
+        service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonphone != null">
+        service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealData != null">
+        deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealState != null">
+        deal_state = #{record.dealState,jdbcType=CHAR},
+      </if>
+      <if test="record.serviceComment != null">
+        service_comment = #{record.serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="record.commentInfor != null">
+        comment_infor = #{record.commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment_infor
+    set order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      urgency = #{record.urgency,jdbcType=CHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      deal_state = #{record.dealState,jdbcType=CHAR},
+      service_comment = #{record.serviceComment,jdbcType=CHAR},
+      comment_infor = #{record.commentInfor,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    <set>
+      <if test="servicerId != null">
+        servicer_id = #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        urgency = #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        deal_data = #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        service_comment = #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        comment_infor = #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    set servicer_id = #{servicerId,jdbcType=INTEGER},
+      urgency = #{urgency,jdbcType=CHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{dealData,jdbcType=TIMESTAMP},
+      deal_state = #{dealState,jdbcType=CHAR},
+      service_comment = #{serviceComment,jdbcType=CHAR},
+      comment_infor = #{commentInfor,jdbcType=VARCHAR}
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    <id column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
+    <result column="urgency" jdbcType="CHAR" property="urgency" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="service_LC_name" jdbcType="VARCHAR" property="serviceLcName" />
+    <result column="service_SC_name" jdbcType="VARCHAR" property="serviceScName" />
+    <result column="service_AC_name" jdbcType="VARCHAR" property="serviceAcName" />
+    <result column="service_personname" jdbcType="VARCHAR" property="servicePersonname" />
+    <result column="service_personphone" jdbcType="VARCHAR" property="servicePersonphone" />
+    <result column="deal_data" jdbcType="TIMESTAMP" property="dealData" />
+    <result column="deal_state" jdbcType="CHAR" property="dealState" />
+    <result column="service_comment" jdbcType="CHAR" property="serviceComment" />
+    <result column="comment_infor" jdbcType="VARCHAR" property="commentInfor" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_number, servicer_id, urgency, customer_name, phone, service_LC_name, service_SC_name, 
+    service_AC_name, service_personname, service_personphone, deal_data, deal_state, 
+    service_comment, comment_infor
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from comment_infor
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample">
+    delete from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor (order_number, servicer_id, urgency, 
+      customer_name, phone, service_LC_name, 
+      service_SC_name, service_AC_name, service_personname, 
+      service_personphone, deal_data, deal_state, 
+      service_comment, comment_infor)
+    values (#{orderNumber,jdbcType=VARCHAR}, #{servicerId,jdbcType=INTEGER}, #{urgency,jdbcType=CHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{serviceLcName,jdbcType=VARCHAR}, 
+      #{serviceScName,jdbcType=VARCHAR}, #{serviceAcName,jdbcType=VARCHAR}, #{servicePersonname,jdbcType=VARCHAR}, 
+      #{servicePersonphone,jdbcType=VARCHAR}, #{dealData,jdbcType=TIMESTAMP}, #{dealState,jdbcType=CHAR}, 
+      #{serviceComment,jdbcType=CHAR}, #{commentInfor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    insert into comment_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="servicerId != null">
+        servicer_id,
+      </if>
+      <if test="urgency != null">
+        urgency,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name,
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name,
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name,
+      </if>
+      <if test="servicePersonname != null">
+        service_personname,
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone,
+      </if>
+      <if test="dealData != null">
+        deal_data,
+      </if>
+      <if test="dealState != null">
+        deal_state,
+      </if>
+      <if test="serviceComment != null">
+        service_comment,
+      </if>
+      <if test="commentInfor != null">
+        comment_infor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerId != null">
+        #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInforExample" resultType="java.lang.Long">
+    select count(*) from comment_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment_infor
+    <set>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicerId != null">
+        servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.urgency != null">
+        urgency = #{record.urgency,jdbcType=CHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLcName != null">
+        service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceScName != null">
+        service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceAcName != null">
+        service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonname != null">
+        service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePersonphone != null">
+        service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealData != null">
+        deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealState != null">
+        deal_state = #{record.dealState,jdbcType=CHAR},
+      </if>
+      <if test="record.serviceComment != null">
+        service_comment = #{record.serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="record.commentInfor != null">
+        comment_infor = #{record.commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment_infor
+    set order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      servicer_id = #{record.servicerId,jdbcType=INTEGER},
+      urgency = #{record.urgency,jdbcType=CHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      service_LC_name = #{record.serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{record.serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{record.serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{record.servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{record.servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{record.dealData,jdbcType=TIMESTAMP},
+      deal_state = #{record.dealState,jdbcType=CHAR},
+      service_comment = #{record.serviceComment,jdbcType=CHAR},
+      comment_infor = #{record.commentInfor,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    <set>
+      <if test="servicerId != null">
+        servicer_id = #{servicerId,jdbcType=INTEGER},
+      </if>
+      <if test="urgency != null">
+        urgency = #{urgency,jdbcType=CHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLcName != null">
+        service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceScName != null">
+        service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAcName != null">
+        service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonname != null">
+        service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePersonphone != null">
+        service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dealData != null">
+        deal_data = #{dealData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="serviceComment != null">
+        service_comment = #{serviceComment,jdbcType=CHAR},
+      </if>
+      <if test="commentInfor != null">
+        comment_infor = #{commentInfor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.CommentInfor">
+    update comment_infor
+    set servicer_id = #{servicerId,jdbcType=INTEGER},
+      urgency = #{urgency,jdbcType=CHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      service_LC_name = #{serviceLcName,jdbcType=VARCHAR},
+      service_SC_name = #{serviceScName,jdbcType=VARCHAR},
+      service_AC_name = #{serviceAcName,jdbcType=VARCHAR},
+      service_personname = #{servicePersonname,jdbcType=VARCHAR},
+      service_personphone = #{servicePersonphone,jdbcType=VARCHAR},
+      deal_data = #{dealData,jdbcType=TIMESTAMP},
+      deal_state = #{dealState,jdbcType=CHAR},
+      service_comment = #{serviceComment,jdbcType=CHAR},
+      comment_infor = #{commentInfor,jdbcType=VARCHAR}
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+  </update>
 </mapper>

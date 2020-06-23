@@ -1,11 +1,11 @@
 package com.adufeitian.servicesystem.mybatis.domain;
 
-public class PersonalInfo {
+public class PersonalInfor {
     private Integer personId;
 
     private Integer servicerId;
 
-    private String acoount;
+    private String account;
 
     private String password;
 
@@ -16,6 +16,8 @@ public class PersonalInfo {
     private String tell;
 
     private String address;
+
+    private String email;
 
     public Integer getPersonId() {
         return personId;
@@ -33,12 +35,12 @@ public class PersonalInfo {
         this.servicerId = servicerId;
     }
 
-    public String getAcoount() {
-        return acoount;
+    public String getAccount() {
+        return account;
     }
 
-    public void setAcoount(String acoount) {
-        this.acoount = acoount == null ? null : acoount.trim();
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
     }
 
     public String getPassword() {
@@ -81,6 +83,14 @@ public class PersonalInfo {
         this.address = address == null ? null : address.trim();
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -92,15 +102,16 @@ public class PersonalInfo {
         if (getClass() != that.getClass()) {
             return false;
         }
-        PersonalInfo other = (PersonalInfo) that;
+        PersonalInfor other = (PersonalInfor) that;
         return (this.getPersonId() == null ? other.getPersonId() == null : this.getPersonId().equals(other.getPersonId()))
             && (this.getServicerId() == null ? other.getServicerId() == null : this.getServicerId().equals(other.getServicerId()))
-            && (this.getAcoount() == null ? other.getAcoount() == null : this.getAcoount().equals(other.getAcoount()))
+            && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getCharacter() == null ? other.getCharacter() == null : this.getCharacter().equals(other.getCharacter()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getTell() == null ? other.getTell() == null : this.getTell().equals(other.getTell()))
-            && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()));
+            && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
+            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()));
     }
 
     @Override
@@ -109,12 +120,13 @@ public class PersonalInfo {
         int result = 1;
         result = prime * result + ((getPersonId() == null) ? 0 : getPersonId().hashCode());
         result = prime * result + ((getServicerId() == null) ? 0 : getServicerId().hashCode());
-        result = prime * result + ((getAcoount() == null) ? 0 : getAcoount().hashCode());
+        result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getCharacter() == null) ? 0 : getCharacter().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getTell() == null) ? 0 : getTell().hashCode());
         result = prime * result + ((getAddress() == null) ? 0 : getAddress().hashCode());
+        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         return result;
     }
 }

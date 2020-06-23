@@ -58,7 +58,7 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="id" javaType="java.lang.Long"/>
         </table>
-        <table tableName="service_info" domainObjectName="ServiceInfor">
+        <table tableName="service_infor" domainObjectName="ServiceInfor">
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="id" javaType="java.lang.Long"/>
@@ -68,7 +68,7 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="id" javaType="java.lang.Long"/>
         </table>
-        <table tableName="personal_info" domainObjectName="PersonalInfo">
+        <table tableName="personal_infor" domainObjectName="PersonalInfor">
             <property name="useActualColumnNames" value="false" />
         </table>
     </context>
