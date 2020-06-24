@@ -12,7 +12,7 @@ public class MySessionContext {
         private ReentrantLock globalSourceLock = new ReentrantLock();
         public synchronized void removeAllSession() {
             for (HttpSession session : sessions) {
-                session.removeAttribute("userId");
+                session.removeAttribute("personId");
             }
             sessions.clear();
         }
@@ -21,7 +21,7 @@ public class MySessionContext {
             for (int i = 0; i < length ; i++) {
                 if (sessions.get(i).getId().equals(sessionId)) {
                     HttpSession session = sessions.remove(i);
-                    session.removeAttribute("userId");
+                    session.removeAttribute("personId");
                     return true;
                 }
             }
@@ -54,10 +54,10 @@ public class MySessionContext {
     }
 
     private volatile static MySessionContext instance;
-    private ConcurrentHashMap<Long,Context> contextMap;
+    private ConcurrentHashMap<Integer,Context> contextMap;
 
     private MySessionContext() {
-        contextMap = new ConcurrentHashMap<Long,Context>();
+        contextMap = new ConcurrentHashMap<Integer,Context>();
     }
     public synchronized static MySessionContext getInstance() {
         if (instance == null) {
@@ -68,12 +68,12 @@ public class MySessionContext {
     public ConcurrentHashMap getContexMap() {
         return contextMap;
     }
-    public synchronized boolean addSession(Long userId, HttpSession session) {
-        if (userId != null) {
-            Context context = contextMap.get(userId);
+    public synchronized boolean addSession(Integer personId, HttpSession session) {
+        if (personId != null) {
+            Context context = contextMap.get(personId);
             if (context==null) {
                 context = new Context();
-                contextMap.put(userId,context);
+                contextMap.put(personId,context);
                 return context.addSession(session);
             } else {
                 return context.addSession(session);
@@ -83,8 +83,8 @@ public class MySessionContext {
         }
     }
 
-    public synchronized boolean delSession(Long userId,String sessionId) {
-        Context context = contextMap.get(userId);
+    public synchronized boolean delSession(Integer personId,String sessionId) {
+        Context context = contextMap.get(personId);
         if (context != null) {
             return context.removeSession(sessionId);
         } else {
@@ -92,14 +92,14 @@ public class MySessionContext {
         }
     }
 
-    public synchronized Context getContext (Long userId) {
-        if(userId==null) {
+    public synchronized Context getContext (Integer personId) {
+        if(personId==null) {
             return null;
         }
-        Context context = contextMap.get(userId);
+        Context context = contextMap.get(personId);
         if (context == null) {
             context = new Context();
-            contextMap.put(userId,context);
+            contextMap.put(personId,context);
             return context;
         } else {
             return context;

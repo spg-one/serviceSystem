@@ -30,7 +30,7 @@ public class HttpDomainArgumentResolver implements HandlerMethodArgumentResolver
         httpDomain.request = (HttpServletRequest) webRequest.getNativeRequest();
         httpDomain.response = (HttpServletResponse) webRequest.getNativeResponse();
         httpDomain.session = httpDomain.request.getSession(true);
-        if (httpDomain.session.getAttribute("userId")!=null) {
+        if (httpDomain.session.getAttribute("personId")!=null) {
             httpDomain.session.setAttribute("activated",new Date().getTime());
         }
         return httpDomain;

@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
     <id column="person_id" jdbcType="INTEGER" property="personId" />
     <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="character" jdbcType="VARCHAR" property="character" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="user_role" jdbcType="VARCHAR" property="userRole" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="tell" jdbcType="VARCHAR" property="tell" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -71,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    person_id, servicer_id, account, password, character, name, tell, address, email
+    person_id, servicer_id, user_name, password, user_role, real_name, tell, address, 
+    email
   </sql>
   <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInforExample" resultMap="BaseResultMap">
     select
@@ -104,12 +105,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
-    insert into personal_infor (person_id, servicer_id, account, 
-      password, character, name, 
+    insert into personal_infor (person_id, servicer_id, user_name, 
+      password, user_role, real_name, 
       tell, address, email
       )
-    values (#{personId,jdbcType=INTEGER}, #{servicerId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+    values (#{personId,jdbcType=INTEGER}, #{servicerId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userRole,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
       #{tell,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
       )
   </insert>
@@ -122,17 +123,17 @@
       <if test="servicerId != null">
         servicer_id,
       </if>
-      <if test="account != null">
-        account,
+      <if test="userName != null">
+        user_name,
       </if>
       <if test="password != null">
         password,
       </if>
-      <if test="character != null">
-        character,
+      <if test="userRole != null">
+        user_role,
       </if>
-      <if test="name != null">
-        name,
+      <if test="realName != null">
+        real_name,
       </if>
       <if test="tell != null">
         tell,
@@ -151,17 +152,17 @@
       <if test="servicerId != null">
         #{servicerId,jdbcType=INTEGER},
       </if>
-      <if test="account != null">
-        #{account,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="character != null">
-        #{character,jdbcType=VARCHAR},
+      <if test="userRole != null">
+        #{userRole,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
       </if>
       <if test="tell != null">
         #{tell,jdbcType=VARCHAR},
@@ -189,17 +190,17 @@
       <if test="record.servicerId != null">
         servicer_id = #{record.servicerId,jdbcType=INTEGER},
       </if>
-      <if test="record.account != null">
-        account = #{record.account,jdbcType=VARCHAR},
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.character != null">
-        character = #{record.character,jdbcType=VARCHAR},
+      <if test="record.userRole != null">
+        user_role = #{record.userRole,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
       </if>
       <if test="record.tell != null">
         tell = #{record.tell,jdbcType=VARCHAR},
@@ -219,10 +220,10 @@
     update personal_infor
     set person_id = #{record.personId,jdbcType=INTEGER},
       servicer_id = #{record.servicerId,jdbcType=INTEGER},
-      account = #{record.account,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      character = #{record.character,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
+      user_role = #{record.userRole,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
       tell = #{record.tell,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR}
@@ -236,17 +237,17 @@
       <if test="servicerId != null">
         servicer_id = #{servicerId,jdbcType=INTEGER},
       </if>
-      <if test="account != null">
-        account = #{account,jdbcType=VARCHAR},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="character != null">
-        character = #{character,jdbcType=VARCHAR},
+      <if test="userRole != null">
+        user_role = #{userRole,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="tell != null">
         tell = #{tell,jdbcType=VARCHAR},
@@ -263,281 +264,10 @@
   <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
     update personal_infor
     set servicer_id = #{servicerId,jdbcType=INTEGER},
-      account = #{account,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      character = #{character,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      tell = #{tell,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR}
-    where person_id = #{personId,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
-    <id column="person_id" jdbcType="INTEGER" property="personId" />
-    <result column="servicer_id" jdbcType="INTEGER" property="servicerId" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="character" jdbcType="VARCHAR" property="character" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="tell" jdbcType="VARCHAR" property="tell" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    person_id, servicer_id, account, password, character, name, tell, address, email
-  </sql>
-  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInforExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from personal_infor
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from personal_infor
-    where person_id = #{personId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from personal_infor
-    where person_id = #{personId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInforExample">
-    delete from personal_infor
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
-    insert into personal_infor (person_id, servicer_id, account, 
-      password, character, name, 
-      tell, address, email
-      )
-    values (#{personId,jdbcType=INTEGER}, #{servicerId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{character,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{tell,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
-    insert into personal_infor
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="personId != null">
-        person_id,
-      </if>
-      <if test="servicerId != null">
-        servicer_id,
-      </if>
-      <if test="account != null">
-        account,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="character != null">
-        character,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="tell != null">
-        tell,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="personId != null">
-        #{personId,jdbcType=INTEGER},
-      </if>
-      <if test="servicerId != null">
-        #{servicerId,jdbcType=INTEGER},
-      </if>
-      <if test="account != null">
-        #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="character != null">
-        #{character,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="tell != null">
-        #{tell,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInforExample" resultType="java.lang.Long">
-    select count(*) from personal_infor
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update personal_infor
-    <set>
-      <if test="record.personId != null">
-        person_id = #{record.personId,jdbcType=INTEGER},
-      </if>
-      <if test="record.servicerId != null">
-        servicer_id = #{record.servicerId,jdbcType=INTEGER},
-      </if>
-      <if test="record.account != null">
-        account = #{record.account,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.character != null">
-        character = #{record.character,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.tell != null">
-        tell = #{record.tell,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update personal_infor
-    set person_id = #{record.personId,jdbcType=INTEGER},
-      servicer_id = #{record.servicerId,jdbcType=INTEGER},
-      account = #{record.account,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      character = #{record.character,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      tell = #{record.tell,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
-    update personal_infor
-    <set>
-      <if test="servicerId != null">
-        servicer_id = #{servicerId,jdbcType=INTEGER},
-      </if>
-      <if test="account != null">
-        account = #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="character != null">
-        character = #{character,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="tell != null">
-        tell = #{tell,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where person_id = #{personId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.PersonalInfor">
-    update personal_infor
-    set servicer_id = #{servicerId,jdbcType=INTEGER},
-      account = #{account,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      character = #{character,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
       tell = #{tell,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR}

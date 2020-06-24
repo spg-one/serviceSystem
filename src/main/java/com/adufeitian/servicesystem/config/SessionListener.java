@@ -30,9 +30,9 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         HttpSession session = se.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-        if ( userId != null ) {
-            msc.delSession(userId,se.getSession().getId());
+        Integer personId = (Integer) session.getAttribute("personId");
+        if ( personId != null ) {
+            msc.delSession(personId,se.getSession().getId());
         }
     }
 }
