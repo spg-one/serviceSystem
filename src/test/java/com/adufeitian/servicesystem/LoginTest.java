@@ -1,5 +1,6 @@
 package com.adufeitian.servicesystem;
 
+import com.adufeitian.servicesystem.security.PasswordCipher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
@@ -34,6 +36,13 @@ public class LoginTest {
         map.add("password","12345678");
         //Get请求
         MvcResult result = mockMvc.perform(post("/login/login-post").params(map))
+                .andReturn();
+        System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
+    }
+
+    @Test
+    public void testLogout() throws Exception {
+        MvcResult result = mockMvc.perform(get("/login/logout"))
                 .andReturn();
         System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
     }

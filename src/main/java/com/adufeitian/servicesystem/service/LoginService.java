@@ -25,6 +25,10 @@ public class LoginService {
         httpd.session.setAttribute("personId",personId);
         return true;
     }
+    public boolean logoutActor(HttpDomain httpd, Integer personId) {
+        boolean logoutCheck = MySessionContext.getInstance().delSession(personId,httpd.session.getId());
+        return logoutCheck;
+    }
     public boolean login(HttpDomain httpd) {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId != null) {
@@ -35,7 +39,6 @@ public class LoginService {
         String account = httpd.request.getParameter("account");
         String password = httpd.request.getParameter("password");
         PersonalInforExample personalInforExample = new PersonalInforExample();
-        System.out.println(account);
         personalInforExample.createCriteria().andUserNameEqualTo(account);
         List<PersonalInfor> personalInfors = personalInforMapper.selectByExample(personalInforExample);
         //存在该用户名
@@ -54,6 +57,7 @@ public class LoginService {
             }
             //密码不正确
             else {
+                httpd.setStatus(400);
                 httpd.put("error","用户名或者密码不正确");
                 return false;
             }
@@ -76,13 +80,28 @@ public class LoginService {
                         return true;
                     }
                 } else {
+                    httpd.setStatus(400);
                     httpd.put("error","用户名或者密码不正确");
                     return false;
                 }
             } else {
+                httpd.setStatus(400);
                 httpd.put("error","用户名或者密码不正确");
                 return false;
             }
+        }
+    }
+
+    public boolean logout(HttpDomain httpd) {
+        Integer personId = (Integer) httpd.session.getAttribute("personId");
+        if (personId != null) {
+            logoutActor(httpd, personId);
+            httpd.put("success","登出成功");
+            return true;
+        } else {
+            httpd.setStatus(400);
+            httpd.put("error","请先登录");
+            return false;
         }
     }
 }
