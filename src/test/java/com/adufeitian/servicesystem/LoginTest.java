@@ -32,8 +32,8 @@ public class LoginTest {
     @Test
     public void testLogin() throws Exception {
         MultiValueMap map = new LinkedMultiValueMap();
-        map.add("account","feidudeqiu");
-        map.add("password","12345678");
+        map.add("username","xyb");
+        map.add("password","123456");
         //Get请求
         MvcResult result = mockMvc.perform(post("/login/login-post").params(map))
                 .andReturn();
@@ -46,4 +46,5 @@ public class LoginTest {
                 .andReturn();
         System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
     }
+
 }

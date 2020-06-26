@@ -9,6 +9,6 @@ public class PasswordCipher {
         return Cipher.getMessageEncrypt(originPassword,key,iv);
     }
     public static String getOriginPassword(String encrypedPassword) {
-        return Cipher.getMessageEncrypt(encrypedPassword,key,iv);
+        return Cipher.getMessageDecrypt(encrypedPassword,key,iv);
     }
 }

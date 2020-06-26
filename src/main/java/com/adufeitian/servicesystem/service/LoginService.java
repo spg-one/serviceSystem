@@ -36,10 +36,10 @@ public class LoginService {
             httpd.put("error","请勿重复登录");
             return false;
         }
-        String account = httpd.request.getParameter("account");
+        String username = httpd.request.getParameter("username");
         String password = httpd.request.getParameter("password");
         PersonalInforExample personalInforExample = new PersonalInforExample();
-        personalInforExample.createCriteria().andUserNameEqualTo(account);
+        personalInforExample.createCriteria().andUserNameEqualTo(username);
         List<PersonalInfor> personalInfors = personalInforMapper.selectByExample(personalInforExample);
         //存在该用户名
         if(personalInfors.size() != 0) {
@@ -65,7 +65,7 @@ public class LoginService {
         //不存在该用户名-判断邮箱
         else {
             personalInforExample.clear();
-            personalInforExample.createCriteria().andEmailEqualTo(account);
+            personalInforExample.createCriteria().andEmailEqualTo(username);
             personalInfors = personalInforMapper.selectByExample(personalInforExample);
             if(personalInfors.size() != 0) {
                 PersonalInfor personalInfor = personalInfors.get(0);

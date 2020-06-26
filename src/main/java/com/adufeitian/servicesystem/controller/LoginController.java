@@ -30,7 +30,7 @@ public class LoginController {
     /**
      * 请求的路径为 post:{controllerMapping}/login-post
      * 请求数据为
-     *  account(string): 用户名
+     *  username(string): 用户名
      *  password(string): 密码
      * 返回数据为
      *  登录成功返回 code:200 {"success":"登录成功"}
