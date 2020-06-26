@@ -2,6 +2,7 @@ package com.adufeitian.servicesystem.controller;
 
 import com.adufeitian.servicesystem.config.argumentResolver.HttpDomain;
 import com.adufeitian.servicesystem.config.argumentResolver.HttpDomainArgument;
+import com.adufeitian.servicesystem.service.HelloService;
 import com.adufeitian.servicesystem.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,24 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 
+
 @Controller
-@RequestMapping("login")
-public class LoginController {
+@RequestMapping("hello")
+public class HelloController{
     @Autowired
-    private LoginService loginService;
-
-    @RequestMapping(value = {"","/"})
-    String getLoginTemplate() {
-        return "login";
+    private HelloService helloservice;
+    @RequestMapping("/helloa")
+    public String hhh(){
+        return helloservice.hello();
     }
+    
 
-    @PostMapping("/login-post")
-    @HttpDomainArgument
-    @ResponseBody
-    HashMap LoginPost(HttpDomain httpd) {
-        loginService.login(httpd);
-        return httpd.getResponseBody();
-    }
 }
-
-

@@ -13,23 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("login")
-public class LoginController {
-    @Autowired
-    private LoginService loginService;
+@RequestMapping("home-page")
+public class HomePageController {
+   // @GetMapping("/personal-info")
 
-    @RequestMapping(value = {"","/"})
-    String getLoginTemplate() {
-        return "login";
-    }
-
-    @PostMapping("/login-post")
-    @HttpDomainArgument
-    @ResponseBody
-    HashMap LoginPost(HttpDomain httpd) {
-        loginService.login(httpd);
-        return httpd.getResponseBody();
-    }
 }
-
-
