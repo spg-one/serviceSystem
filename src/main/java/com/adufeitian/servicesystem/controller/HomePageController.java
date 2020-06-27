@@ -2,6 +2,7 @@ package com.adufeitian.servicesystem.controller;
 
 import com.adufeitian.servicesystem.config.argumentResolver.HttpDomain;
 import com.adufeitian.servicesystem.config.argumentResolver.HttpDomainArgument;
+import com.adufeitian.servicesystem.service.HomePageService;
 import com.adufeitian.servicesystem.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,31 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("home-page")
 public class HomePageController {
-   // @GetMapping("/personal-info")
+   @Autowired
+   HomePageService homepageService;
+
+   /**
+     * 请求的路径为 get:home-page/personal-info
+     * return 返回首页上的服务商个人信息
+     */
+   @GetMapping("/personal-info")
+   @HttpDomainArgument
+   @ResponseBody
+   HashMap getHomePagePersonalData(HttpDomain httpd){
+      homepageService.getPersonalInfo(httpd);
+      return httpd.getResponseBody();
+   }
+
+   /**
+     * 请求的路径为 get:home-page/pending-order
+     * return 返回首页上的待处理工单
+     */
+   @GetMapping("/pending-order")
+   @HttpDomainArgument
+   @ResponseBody
+   HashMap getHomePagePendingOrder(HttpDomain httpd){
+      homepageService.getPendingOrder(httpd);
+      return httpd.getResponseBody();
+   }
 
 }

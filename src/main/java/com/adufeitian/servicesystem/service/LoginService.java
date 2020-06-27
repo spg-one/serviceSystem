@@ -36,7 +36,7 @@ public class LoginService {
             httpd.put("error","请勿重复登录");
             return false;
         }
-        String username = httpd.request.getParameter("username");
+        String username = httpd.request.getParameter("user_name");
         String password = httpd.request.getParameter("password");
         PersonalInforExample personalInforExample = new PersonalInforExample();
         personalInforExample.createCriteria().andUserNameEqualTo(username);
