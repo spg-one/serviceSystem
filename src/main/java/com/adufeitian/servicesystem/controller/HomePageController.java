@@ -27,6 +27,9 @@ public class HomePageController {
    @HttpDomainArgument
    @ResponseBody
    HashMap getHomePagePersonalData(HttpDomain httpd){
+      //HashMap hh = new HashMap<>();
+      //hh.put("1", 2222);
+      //return hh;
       homepageService.getPersonalInfo(httpd);
       return httpd.getResponseBody();
    }
