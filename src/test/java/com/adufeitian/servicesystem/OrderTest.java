@@ -44,4 +44,10 @@ public class OrderTest {
         System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
     }
 
+    @Test
+    public void getAcceptedOrder() throws Exception {
+        MvcResult result = mockMvc.perform(get("/order/get-accepted-order").session(session)).andReturn();
+        System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
+    }
+
 }

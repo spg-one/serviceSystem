@@ -83,12 +83,22 @@ public class OrderService {
         if(lockMap.get(pendingOrder.getOrderId())!=null) {
             synchronized (OrderService.class) {
                 if(lockMap.get(pendingOrder.getOrderId())!=null) {
-
+                    AcceptedOrder acceptedOrder = new AcceptedOrder();
+                    transform(pendingOrder,acceptedOrder);
+                    pendingOrderMapper.deleteByPrimaryKey(pendingOrder.getOrderId());
+                    acceptedOrderMapper.insertSelective(acceptedOrder);
+                    lockMap.remove(pendingOrder.getOrderId());
+                    httpd.put("success","接收成功");
+                    return true;
+                } else {
+                    httpd.put("error","该订单号无效");
+                    return false;
                 }
             }
+        } else {
+            httpd.put("error","该订单号无效");
+            return false;
         }
-        //continue...
-        return true;
     }
     private void transform(PendingOrder pendingOrder, AcceptedOrder acceptedOrder) {
         acceptedOrder.setOrderId(pendingOrder.getOrderId());

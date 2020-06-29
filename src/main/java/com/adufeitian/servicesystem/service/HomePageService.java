@@ -51,7 +51,7 @@ public class HomePageService {
         //获取该服务商的全部待处理工单
         for(PendingOrder pendingOrder : pendingOrders){
             HashMap pendingOrderMap=new HashMap<>();
-            pendingOrderMap.put("number", pendingOrder.getNumber());
+            pendingOrderMap.put("order_id", pendingOrder.getOrderId());
             pendingOrderMap.put("service_add", pendingOrder.getServiceAdd());
             pendingOrderMap.put("dispatch_time", pendingOrder.getDispatchTime());
             pendingOrderMap.put("customer_name", pendingOrder.getCustomerName());
