@@ -7,8 +7,6 @@ public class PendingOrder {
 
     private Integer servicerId;
 
-    private String number;
-
     private String serviceAdd;
 
     private Date dispatchTime;
@@ -35,14 +33,6 @@ public class PendingOrder {
 
     public void setServicerId(Integer servicerId) {
         this.servicerId = servicerId;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number == null ? null : number.trim();
     }
 
     public String getServiceAdd() {
@@ -107,7 +97,6 @@ public class PendingOrder {
         PendingOrder other = (PendingOrder) that;
         return (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getServicerId() == null ? other.getServicerId() == null : this.getServicerId().equals(other.getServicerId()))
-            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()))
             && (this.getServiceAdd() == null ? other.getServiceAdd() == null : this.getServiceAdd().equals(other.getServiceAdd()))
             && (this.getDispatchTime() == null ? other.getDispatchTime() == null : this.getDispatchTime().equals(other.getDispatchTime()))
             && (this.getCustomerName() == null ? other.getCustomerName() == null : this.getCustomerName().equals(other.getCustomerName()))
@@ -122,7 +111,6 @@ public class PendingOrder {
         int result = 1;
         result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
         result = prime * result + ((getServicerId() == null) ? 0 : getServicerId().hashCode());
-        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
         result = prime * result + ((getServiceAdd() == null) ? 0 : getServiceAdd().hashCode());
         result = prime * result + ((getDispatchTime() == null) ? 0 : getDispatchTime().hashCode());
         result = prime * result + ((getCustomerName() == null) ? 0 : getCustomerName().hashCode());

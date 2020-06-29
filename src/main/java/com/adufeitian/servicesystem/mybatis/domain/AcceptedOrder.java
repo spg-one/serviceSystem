@@ -3,7 +3,7 @@ package com.adufeitian.servicesystem.mybatis.domain;
 import java.util.Date;
 
 public class AcceptedOrder {
-    private String orderNumber;
+    private Integer orderId;
 
     private Integer servicerId;
 
@@ -49,12 +49,12 @@ public class AcceptedOrder {
 
     private Integer serviceTimes;
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber == null ? null : orderNumber.trim();
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getServicerId() {
@@ -245,7 +245,7 @@ public class AcceptedOrder {
             return false;
         }
         AcceptedOrder other = (AcceptedOrder) that;
-        return (this.getOrderNumber() == null ? other.getOrderNumber() == null : this.getOrderNumber().equals(other.getOrderNumber()))
+        return (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getServicerId() == null ? other.getServicerId() == null : this.getServicerId().equals(other.getServicerId()))
             && (this.getMarchantAdd() == null ? other.getMarchantAdd() == null : this.getMarchantAdd().equals(other.getMarchantAdd()))
             && (this.getCustomerName() == null ? other.getCustomerName() == null : this.getCustomerName().equals(other.getCustomerName()))
@@ -274,7 +274,7 @@ public class AcceptedOrder {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getOrderNumber() == null) ? 0 : getOrderNumber().hashCode());
+        result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
         result = prime * result + ((getServicerId() == null) ? 0 : getServicerId().hashCode());
         result = prime * result + ((getMarchantAdd() == null) ? 0 : getMarchantAdd().hashCode());
         result = prime * result + ((getCustomerName() == null) ? 0 : getCustomerName().hashCode());

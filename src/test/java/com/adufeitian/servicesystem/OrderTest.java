@@ -1,6 +1,5 @@
 package com.adufeitian.servicesystem;
 
-import com.adufeitian.servicesystem.security.PasswordCipher;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,47 +21,27 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class LoginTest {
+public class OrderTest {
     private MockMvc mockMvc;
     private MockHttpSession session;
     @Autowired
     private WebApplicationContext wac;
 
     @BeforeAll// 在测试开始前初始化工作
-    public void setup() {
+    public void setup() throws Exception{
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
         this.session = new MockHttpSession();
-    }
-
-    @Test
-    public void testLogin() throws Exception {
         MultiValueMap map = new LinkedMultiValueMap();
         map.add("user_name","xyb");
         map.add("password","123456");
         //Get请求
-        MvcResult result = mockMvc.perform(post("/login/login-post").params(map).session(session))
-                .andReturn();
-        System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
+        MvcResult result = mockMvc.perform(post("/login/login-post").params(map).session(session)).andReturn();
     }
 
     @Test
-    public void testLogout() throws Exception {
-        MvcResult result = mockMvc.perform(get("/login/logout").session(session))
-                .andReturn();
+    public void getPaddingOrder() throws Exception {
+        MvcResult result = mockMvc.perform(get("/order/get-pending-order").session(session)).andReturn();
         System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
     }
 
-    @Test
-    public void testMultipartLogin() throws Exception {
-        MultiValueMap map = new LinkedMultiValueMap();
-        map.add("user_name","xyb");
-        map.add("password","123456");
-        //Get请求
-        MvcResult result = mockMvc.perform(post("/login/login-post").params(map))
-                .andReturn();
-        System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
-        result = mockMvc.perform(post("/login/login-post").params(map))
-                .andReturn();
-        System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
-    }
 }
