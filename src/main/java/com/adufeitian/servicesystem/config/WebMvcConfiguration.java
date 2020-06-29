@@ -19,3 +19,5 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         argumentResolvers.add(httpDomainArgumentResolver);
     }
 }
+
+
