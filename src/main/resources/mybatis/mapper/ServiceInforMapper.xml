@@ -208,4 +208,625 @@
       charge = #{charge,jdbcType=VARCHAR}
     where service_id = #{serviceId,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    <id column="service_id" jdbcType="INTEGER" property="serviceId" />
+    <result column="system_lc_name" jdbcType="VARCHAR" property="systemLcName" />
+    <result column="system_sc_name" jdbcType="VARCHAR" property="systemScName" />
+    <result column="simple_info" jdbcType="VARCHAR" property="simpleInfo" />
+    <result column="charge" jdbcType="VARCHAR" property="charge" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    service_id, system_lc_name, system_sc_name, simple_info, charge
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_infor
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from service_infor
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample">
+    delete from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    insert into service_infor (service_id, system_lc_name, system_sc_name, 
+      simple_info, charge)
+    values (#{serviceId,jdbcType=INTEGER}, #{systemLcName,jdbcType=VARCHAR}, #{systemScName,jdbcType=VARCHAR}, 
+      #{simpleInfo,jdbcType=VARCHAR}, #{charge,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    insert into service_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="systemLcName != null">
+        system_lc_name,
+      </if>
+      <if test="systemScName != null">
+        system_sc_name,
+      </if>
+      <if test="simpleInfo != null">
+        simple_info,
+      </if>
+      <if test="charge != null">
+        charge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="systemLcName != null">
+        #{systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemScName != null">
+        #{systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleInfo != null">
+        #{simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null">
+        #{charge,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample" resultType="java.lang.Long">
+    select count(*) from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update service_infor
+    <set>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.systemLcName != null">
+        system_lc_name = #{record.systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemScName != null">
+        system_sc_name = #{record.systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.simpleInfo != null">
+        simple_info = #{record.simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.charge != null">
+        charge = #{record.charge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update service_infor
+    set service_id = #{record.serviceId,jdbcType=INTEGER},
+      system_lc_name = #{record.systemLcName,jdbcType=VARCHAR},
+      system_sc_name = #{record.systemScName,jdbcType=VARCHAR},
+      simple_info = #{record.simpleInfo,jdbcType=VARCHAR},
+      charge = #{record.charge,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    update service_infor
+    <set>
+      <if test="systemLcName != null">
+        system_lc_name = #{systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemScName != null">
+        system_sc_name = #{systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleInfo != null">
+        simple_info = #{simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null">
+        charge = #{charge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    update service_infor
+    set system_lc_name = #{systemLcName,jdbcType=VARCHAR},
+      system_sc_name = #{systemScName,jdbcType=VARCHAR},
+      simple_info = #{simpleInfo,jdbcType=VARCHAR},
+      charge = #{charge,jdbcType=VARCHAR}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    <id column="service_id" jdbcType="INTEGER" property="serviceId" />
+    <result column="system_lc_name" jdbcType="VARCHAR" property="systemLcName" />
+    <result column="system_sc_name" jdbcType="VARCHAR" property="systemScName" />
+    <result column="simple_info" jdbcType="VARCHAR" property="simpleInfo" />
+    <result column="charge" jdbcType="VARCHAR" property="charge" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    service_id, system_lc_name, system_sc_name, simple_info, charge
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_infor
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from service_infor
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample">
+    delete from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    insert into service_infor (service_id, system_lc_name, system_sc_name, 
+      simple_info, charge)
+    values (#{serviceId,jdbcType=INTEGER}, #{systemLcName,jdbcType=VARCHAR}, #{systemScName,jdbcType=VARCHAR}, 
+      #{simpleInfo,jdbcType=VARCHAR}, #{charge,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    insert into service_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="systemLcName != null">
+        system_lc_name,
+      </if>
+      <if test="systemScName != null">
+        system_sc_name,
+      </if>
+      <if test="simpleInfo != null">
+        simple_info,
+      </if>
+      <if test="charge != null">
+        charge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="systemLcName != null">
+        #{systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemScName != null">
+        #{systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleInfo != null">
+        #{simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null">
+        #{charge,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample" resultType="java.lang.Long">
+    select count(*) from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update service_infor
+    <set>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.systemLcName != null">
+        system_lc_name = #{record.systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemScName != null">
+        system_sc_name = #{record.systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.simpleInfo != null">
+        simple_info = #{record.simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.charge != null">
+        charge = #{record.charge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update service_infor
+    set service_id = #{record.serviceId,jdbcType=INTEGER},
+      system_lc_name = #{record.systemLcName,jdbcType=VARCHAR},
+      system_sc_name = #{record.systemScName,jdbcType=VARCHAR},
+      simple_info = #{record.simpleInfo,jdbcType=VARCHAR},
+      charge = #{record.charge,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    update service_infor
+    <set>
+      <if test="systemLcName != null">
+        system_lc_name = #{systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemScName != null">
+        system_sc_name = #{systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleInfo != null">
+        simple_info = #{simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null">
+        charge = #{charge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    update service_infor
+    set system_lc_name = #{systemLcName,jdbcType=VARCHAR},
+      system_sc_name = #{systemScName,jdbcType=VARCHAR},
+      simple_info = #{simpleInfo,jdbcType=VARCHAR},
+      charge = #{charge,jdbcType=VARCHAR}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    <id column="service_id" jdbcType="INTEGER" property="serviceId" />
+    <result column="system_lc_name" jdbcType="VARCHAR" property="systemLcName" />
+    <result column="system_sc_name" jdbcType="VARCHAR" property="systemScName" />
+    <result column="simple_info" jdbcType="VARCHAR" property="simpleInfo" />
+    <result column="charge" jdbcType="VARCHAR" property="charge" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    service_id, system_lc_name, system_sc_name, simple_info, charge
+  </sql>
+  <select id="selectByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_infor
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from service_infor
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample">
+    delete from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    insert into service_infor (service_id, system_lc_name, system_sc_name, 
+      simple_info, charge)
+    values (#{serviceId,jdbcType=INTEGER}, #{systemLcName,jdbcType=VARCHAR}, #{systemScName,jdbcType=VARCHAR}, 
+      #{simpleInfo,jdbcType=VARCHAR}, #{charge,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    insert into service_infor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="systemLcName != null">
+        system_lc_name,
+      </if>
+      <if test="systemScName != null">
+        system_sc_name,
+      </if>
+      <if test="simpleInfo != null">
+        simple_info,
+      </if>
+      <if test="charge != null">
+        charge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="systemLcName != null">
+        #{systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemScName != null">
+        #{systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleInfo != null">
+        #{simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null">
+        #{charge,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample" resultType="java.lang.Long">
+    select count(*) from service_infor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update service_infor
+    <set>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.systemLcName != null">
+        system_lc_name = #{record.systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemScName != null">
+        system_sc_name = #{record.systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.simpleInfo != null">
+        simple_info = #{record.simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.charge != null">
+        charge = #{record.charge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update service_infor
+    set service_id = #{record.serviceId,jdbcType=INTEGER},
+      system_lc_name = #{record.systemLcName,jdbcType=VARCHAR},
+      system_sc_name = #{record.systemScName,jdbcType=VARCHAR},
+      simple_info = #{record.simpleInfo,jdbcType=VARCHAR},
+      charge = #{record.charge,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    update service_infor
+    <set>
+      <if test="systemLcName != null">
+        system_lc_name = #{systemLcName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemScName != null">
+        system_sc_name = #{systemScName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleInfo != null">
+        simple_info = #{simpleInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null">
+        charge = #{charge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adufeitian.servicesystem.mybatis.domain.ServiceInfor">
+    update service_infor
+    set system_lc_name = #{systemLcName,jdbcType=VARCHAR},
+      system_sc_name = #{systemScName,jdbcType=VARCHAR},
+      simple_info = #{simpleInfo,jdbcType=VARCHAR},
+      charge = #{charge,jdbcType=VARCHAR}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
 </mapper>

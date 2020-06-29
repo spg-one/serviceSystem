@@ -15,18 +15,20 @@ import java.util.List;
 public class LoginService {
     @Autowired
     private PersonalInforMapper personalInforMapper;
-    public boolean loginActor(HttpDomain httpd, Integer personId) {
-        boolean loginCheck = MySessionContext.getInstance().addSession(personId,httpd.session);
+    public boolean loginActor(HttpDomain httpd, PersonalInfor personalInfor) {
+        boolean loginCheck = MySessionContext.getInstance().addSession(personalInfor.getPersonId(),httpd.session);
         if (!loginCheck) {
             httpd.setStatus(400);
             httpd.put("error","登录失败，该用户在不同设备上登录数量达到上限");
             return false;
         }
-        httpd.session.setAttribute("personId",personId);
+        httpd.session.setAttribute("personId",personalInfor.getPersonId());
+        httpd.session.setAttribute("servicerId",personalInfor.getServicerId());
         return true;
     }
     public boolean logoutActor(HttpDomain httpd, Integer personId) {
         boolean logoutCheck = MySessionContext.getInstance().delSession(personId,httpd.session.getId());
+        httpd.session.removeAttribute("servicerId");
         return logoutCheck;
     }
     public boolean login(HttpDomain httpd) {
@@ -48,7 +50,7 @@ public class LoginService {
             //密码正确
             if(encryptPassword.equals(personalInfor.getPassword())) {
                 //防止多点登录
-                if (!loginActor(httpd, personalInfor.getPersonId())) {
+                if (!loginActor(httpd, personalInfor)) {
                     return false;
                 } else {
                     httpd.put("success","登录成功");
@@ -73,7 +75,7 @@ public class LoginService {
                 //密码正确
                 if(encryptPassword.equals(personalInfor.getPassword())) {
                     //防止多点登录
-                    if (!loginActor(httpd, personalInfor.getPersonId())) {
+                    if (!loginActor(httpd, personalInfor)) {
                         return false;
                     } else {
                         httpd.put("success","登录成功");

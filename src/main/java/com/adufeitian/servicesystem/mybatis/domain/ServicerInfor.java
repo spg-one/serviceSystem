@@ -31,6 +31,8 @@ public class ServicerInfor {
 
     private String servicerInfo;
 
+    private String telephone;
+
     public Integer getServicerId() {
         return servicerId;
     }
@@ -151,6 +153,14 @@ public class ServicerInfor {
         this.servicerInfo = servicerInfo == null ? null : servicerInfo.trim();
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone == null ? null : telephone.trim();
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -177,7 +187,8 @@ public class ServicerInfor {
             && (this.getCounty() == null ? other.getCounty() == null : this.getCounty().equals(other.getCounty()))
             && (this.getServicerAddress() == null ? other.getServicerAddress() == null : this.getServicerAddress().equals(other.getServicerAddress()))
             && (this.getBusinessHours() == null ? other.getBusinessHours() == null : this.getBusinessHours().equals(other.getBusinessHours()))
-            && (this.getServicerInfo() == null ? other.getServicerInfo() == null : this.getServicerInfo().equals(other.getServicerInfo()));
+            && (this.getServicerInfo() == null ? other.getServicerInfo() == null : this.getServicerInfo().equals(other.getServicerInfo()))
+            && (this.getTelephone() == null ? other.getTelephone() == null : this.getTelephone().equals(other.getTelephone()));
     }
 
     @Override
@@ -199,6 +210,7 @@ public class ServicerInfor {
         result = prime * result + ((getServicerAddress() == null) ? 0 : getServicerAddress().hashCode());
         result = prime * result + ((getBusinessHours() == null) ? 0 : getBusinessHours().hashCode());
         result = prime * result + ((getServicerInfo() == null) ? 0 : getServicerInfo().hashCode());
+        result = prime * result + ((getTelephone() == null) ? 0 : getTelephone().hashCode());
         return result;
     }
 }

@@ -49,6 +49,7 @@
         </table>
         <table tableName="pending_order" domainObjectName="PendingOrder">
             <property name="useActualColumnNames" value="false" />
+            <generatedKey column="order_id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="servicer_infor" domainObjectName="ServicerInfor">
             <property name="useActualColumnNames" value="false" />
