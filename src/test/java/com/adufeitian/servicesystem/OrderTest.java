@@ -50,4 +50,11 @@ public class OrderTest {
         System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
     }
 
+//    @Test
+//    public void accept() throws Exception {
+//        MultiValueMap map = new LinkedMultiValueMap();
+//        map.add("orderId","1");
+//        MvcResult result = mockMvc.perform(post("/order/accept").params(map).session(session)).andReturn();
+//        System.out.println(result.getResponse().getContentAsString(Charset.forName("UTF-8")));
+//    }
 }
