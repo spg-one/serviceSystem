@@ -24,12 +24,14 @@ public class HomePageService {
     private PendingOrderMapper pendingOrderMapper;
 
     //获取首页上的服务商个人信息
-    public boolean getPersonalInfo(HttpDomain httpd){
-        //通过Session获取personId
-        Integer personId = (Integer)httpd.session.getAttribute("personId");
+    public boolean getPersonalInfo(final HttpDomain httpd) {
+        // 通过Session获取personId
+        httpd.session.setAttribute("personId", 1);
         
-        //通过personId获取个人信息
-        PersonalInfor personalInfor = personalInforMapper.selectByPrimaryKey(personId);
+        final Integer personId = (Integer) httpd.session.getAttribute("personId");
+
+        // 通过personId获取个人信息
+        final PersonalInfor personalInfor = personalInforMapper.selectByPrimaryKey(personId);
         httpd.put("user_role", personalInfor.getUserRole());
         httpd.put("real_name", personalInfor.getRealName());
         httpd.put("tell", personalInfor.getTell());
@@ -37,20 +39,22 @@ public class HomePageService {
         return true;
     }
 
-    //获取首页上的待处理工单
-    public boolean getPendingOrder(HttpDomain httpd){
-        PendingOrderExample pendingOrderExample = new PendingOrderExample();
+    // 获取首页上的待处理工单
+    public boolean getPendingOrder(final HttpDomain httpd) {
+        httpd.session.setAttribute("personId", 1);
 
-        //通过Session获取personId，通过personId获取servicerId，再获取服务商的待处理工单
-        Integer personId = (Integer)httpd.session.getAttribute("personId");
-        Integer servicerId = (Integer)personalInforMapper.selectByPrimaryKey(personId).getServicerId();
+        final PendingOrderExample pendingOrderExample = new PendingOrderExample();
+
+        // 通过Session获取personId，通过personId获取servicerId，再获取服务商的待处理工单
+        final Integer personId = (Integer) httpd.session.getAttribute("personId");
+        final Integer servicerId = (Integer) personalInforMapper.selectByPrimaryKey(personId).getServicerId();
         pendingOrderExample.createCriteria().andServicerIdEqualTo(servicerId);
-        List<PendingOrder> pendingOrders = pendingOrderMapper.selectByExample(pendingOrderExample);
+        final List<PendingOrder> pendingOrders = pendingOrderMapper.selectByExample(pendingOrderExample);
 
-        int i=1;
-        //获取该服务商的全部待处理工单
-        for(PendingOrder pendingOrder : pendingOrders){
-            HashMap pendingOrderMap=new HashMap<>();
+        int i = 1;
+        // 获取该服务商的全部待处理工单
+        for (final PendingOrder pendingOrder : pendingOrders) {
+            final HashMap pendingOrderMap = new HashMap<>();
             pendingOrderMap.put("order_id", pendingOrder.getOrderId());
             pendingOrderMap.put("service_add", pendingOrder.getServiceAdd());
             pendingOrderMap.put("dispatch_time", pendingOrder.getDispatchTime());
