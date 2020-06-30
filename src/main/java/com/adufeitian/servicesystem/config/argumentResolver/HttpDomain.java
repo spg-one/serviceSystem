@@ -3,7 +3,10 @@ package com.adufeitian.servicesystem.config.argumentResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HttpDomain {
 
@@ -14,6 +17,8 @@ public class HttpDomain {
     public HttpSession session;
 
     private HashMap responseBody;
+
+    private List responseBodyList;
 
     public void setStatus(int status) {
         this.response.setStatus(status);
@@ -46,5 +51,16 @@ public class HttpDomain {
 
     public HashMap getResponseBody() {
         return this.responseBody;
+    }
+
+    public List getResponseBodyList() {
+        return this.responseBodyList;
+    }
+    
+    public void putToList(HashMap onePendingOrder){
+        if ( responseBodyList == null) {
+            this.responseBodyList = new ArrayList<HashMap>();
+        }
+        this.responseBodyList.add(onePendingOrder);
     }
 }

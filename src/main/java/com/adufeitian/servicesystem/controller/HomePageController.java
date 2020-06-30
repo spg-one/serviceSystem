@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("home-page")
@@ -20,30 +21,33 @@ public class HomePageController {
    HomePageService homepageService;
 
    /**
-     * 请求的路径为 get:home-page/personal-info
-     * return 返回首页上的服务商个人信息
-     */
+    * 请求的路径为 get:home-page/personal-info return 返回首页上的服务商个人信息
+    */
    @GetMapping("/personal-info")
    @HttpDomainArgument
    @ResponseBody
-   HashMap getHomePagePersonalData(HttpDomain httpd){
-      //HashMap hh = new HashMap<>();
-      //hh.put("1", 2222);
-      //return hh;
+   HashMap getHomePagePersonalData(HttpDomain httpd) {
+      // HashMap hh = new HashMap<>();
+      // hh.put("1", 2222);
+      // return hh;
       homepageService.getPersonalInfo(httpd);
       return httpd.getResponseBody();
    }
 
    /**
-     * 请求的路径为 get:home-page/pending-order
-     * return 返回首页上的待处理工单
-     */
+    * 请求的路径为 get:home-page/pending-order return 返回首页上的待处理工单
+    */
    @GetMapping("/pending-order")
    @HttpDomainArgument
    @ResponseBody
-   HashMap getHomePagePendingOrder(HttpDomain httpd){
+   Object getHomePagePendingOrder(HttpDomain httpd) {
       homepageService.getPendingOrder(httpd);
-      return httpd.getResponseBody();
+      if (httpd.getResponseBody()!=null && httpd.getResponseBody().containsKey("error")) {
+         return httpd.getResponseBody();
+      } else {
+         return httpd.getResponseBodyList();
+      }
+
    }
 
 }

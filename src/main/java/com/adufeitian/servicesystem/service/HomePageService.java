@@ -12,9 +12,12 @@ import com.adufeitian.servicesystem.security.PasswordCipher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.xml.crypto.Data;
 
 @Service
 public class HomePageService {
@@ -41,29 +44,34 @@ public class HomePageService {
 
     // 获取首页上的待处理工单
     public boolean getPendingOrder(final HttpDomain httpd) {
-        httpd.session.setAttribute("personId", 1);
+        httpd.session.setAttribute("personId", 2);
+        Integer personId = (Integer) httpd.session.getAttribute("personId");
+        if (personId == null) {
+            httpd.setStatus(400);
+            httpd.put("error","请登录");
+            return false;
+        }
 
         final PendingOrderExample pendingOrderExample = new PendingOrderExample();
 
         // 通过Session获取personId，通过personId获取servicerId，再获取服务商的待处理工单
-        final Integer personId = (Integer) httpd.session.getAttribute("personId");
         final Integer servicerId = (Integer) personalInforMapper.selectByPrimaryKey(personId).getServicerId();
         pendingOrderExample.createCriteria().andServicerIdEqualTo(servicerId);
         final List<PendingOrder> pendingOrders = pendingOrderMapper.selectByExample(pendingOrderExample);
 
-        int i = 1;
+        Date date = new Date();
+        
         // 获取该服务商的全部待处理工单
         for (final PendingOrder pendingOrder : pendingOrders) {
             final HashMap pendingOrderMap = new HashMap<>();
             pendingOrderMap.put("order_id", pendingOrder.getOrderId());
             pendingOrderMap.put("service_add", pendingOrder.getServiceAdd());
-            pendingOrderMap.put("dispatch_time", pendingOrder.getDispatchTime());
+            pendingOrderMap.put("dispatch_time",pendingOrder.getDispatchTime().toString());
             pendingOrderMap.put("customer_name", pendingOrder.getCustomerName());
             pendingOrderMap.put("phone", pendingOrder.getPhone());
             pendingOrderMap.put("service_name", pendingOrder.getServiceName());
-            pendingOrderMap.put("deadline", pendingOrder.getDeadline());
-            httpd.put(i, pendingOrderMap);
-            i++;
+            pendingOrderMap.put("deadline", pendingOrder.getDeadline().toString());
+            httpd.putToList(pendingOrderMap);
         }
         return true;
     }
