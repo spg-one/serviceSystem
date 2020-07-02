@@ -50,4 +50,19 @@ public class HomePageController {
 
    }
 
+   @PostMapping("/accept-order")
+   @HttpDomainArgument
+   @ResponseBody
+   Object acceptPendingOrder(HttpDomain httpd) {
+      homepageService.acceptPendingOrder(httpd);
+      return true;
+   }
+
+   @PostMapping("/refuse-order")
+   @HttpDomainArgument
+   @ResponseBody
+   Object refusePendingOrder(HttpDomain httpd) {
+         homepageService.refusePendingOrder(httpd);
+      return true;
+   }
 }
