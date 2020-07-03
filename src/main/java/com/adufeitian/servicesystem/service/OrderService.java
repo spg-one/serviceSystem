@@ -34,14 +34,14 @@ public class OrderService {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
         PendingOrderExample pendingOrderExample = new PendingOrderExample();
         pendingOrderExample.createCriteria().andServicerIdEqualTo(servicerId);
         List res = pendingOrderMapper.selectByExample(pendingOrderExample);
-        httpd.put("pendingOrders",res);
+        httpd.put("pendingOrders", res);
         return true;
     }
 
@@ -49,14 +49,14 @@ public class OrderService {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
         AcceptedOrderExample example = new AcceptedOrderExample();
         example.createCriteria().andServicerIdEqualTo(servicerId).andOrderStateEqualTo(OrderState.ACCEPTED.getState());
         List res = acceptedOrderMapper.selectByExample(example);
-        httpd.put("acceptedOrders",res);
+        httpd.put("acceptedOrders", res);
         return true;
     }
 
@@ -64,14 +64,14 @@ public class OrderService {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
         AcceptedOrderExample example = new AcceptedOrderExample();
         example.createCriteria().andServicerIdEqualTo(servicerId).andOrderStateEqualTo(OrderState.HANDLED.getState());
         List res = acceptedOrderMapper.selectByExample(example);
-        httpd.put("handledOrders",res);
+        httpd.put("handledOrders", res);
         return true;
     }
 
@@ -79,7 +79,7 @@ public class OrderService {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
@@ -89,23 +89,25 @@ public class OrderService {
             orderId = Integer.parseInt(orderIdString);
         } catch (Exception e) {
             httpd.setStatus(400);
-            httpd.put("error","请输入正确的订单号");
+            httpd.put("error", "请输入正确的订单号");
             return false;
         }
         AcceptedOrder acceptedOrder = acceptedOrderMapper.selectByPrimaryKey(orderId);
-        if(acceptedOrder == null || acceptedOrder.getServicerId() != servicerId || acceptedOrder.getOrderState().equals(OrderState.HANDLED.getState())) {
+        if (acceptedOrder == null || acceptedOrder.getServicerId() != servicerId
+                || acceptedOrder.getOrderState().equals(OrderState.HANDLED.getState())) {
             httpd.setStatus(400);
-            httpd.put("error","该订单号无效");
+            httpd.put("error", "该订单号无效");
             return false;
         }
-        httpd.put("handledOrderInfor",acceptedOrder);
+        httpd.put("handledOrderInfor", acceptedOrder);
         return true;
     }
+
     public boolean acceptOrder(HttpDomain httpd) {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
@@ -116,40 +118,41 @@ public class OrderService {
             orderId = Integer.parseInt(orderIdString);
         } catch (Exception e) {
             httpd.setStatus(400);
-            httpd.put("error","请输入正确的订单号");
+            httpd.put("error", "请输入正确的订单号");
             return false;
         }
         PendingOrder pendingOrder = pendingOrderMapper.selectByPrimaryKey(orderId);
 
-        if(pendingOrder == null|| pendingOrder.getServicerId()!=servicerId) {
+        if (pendingOrder == null || pendingOrder.getServicerId() != servicerId) {
             httpd.setStatus(400);
-            httpd.put("error","该订单号无效");
+            httpd.put("error", "该订单号无效");
             return false;
         }
- 
-        if(lockMap.get(pendingOrder.getOrderId())==null) {
+
+        if (lockMap.get(pendingOrder.getOrderId()) == null) {
             synchronized (OrderService.class) {
-                if(lockMap.get(pendingOrder.getOrderId())==null) {
-                    lockMap.put(pendingOrder.getOrderId(),true);
+                if (lockMap.get(pendingOrder.getOrderId()) == null) {
+                    lockMap.put(pendingOrder.getOrderId(), true);
                     AcceptedOrder acceptedOrder = new AcceptedOrder();
-                    transform(pendingOrder,acceptedOrder);
+                    transform(pendingOrder, acceptedOrder);
                     pendingOrderMapper.deleteByPrimaryKey(pendingOrder.getOrderId());
                     acceptedOrder.setOrderState(OrderState.ACCEPTED.getState());
                     acceptedOrderMapper.insertSelective(acceptedOrder);
-                    httpd.put("success","接受成功");
+                    httpd.put("success", "接受成功");
                     return true;
                 } else {
                     httpd.setStatus(400);
-                    httpd.put("error","该订单号无效");
+                    httpd.put("error", "该订单号无效");
                     return false;
                 }
             }
         } else {
             httpd.setStatus(400);
-            httpd.put("error","该订单号无效");
+            httpd.put("error", "该订单号无效");
             return false;
         }
     }
+
     private void transform(PendingOrder pendingOrder, AcceptedOrder acceptedOrder) {
         acceptedOrder.setOrderId(pendingOrder.getOrderId());
         acceptedOrder.setCustomerName(pendingOrder.getCustomerName());
@@ -160,11 +163,12 @@ public class OrderService {
         acceptedOrder.setServicerId(pendingOrder.getServicerId());
         acceptedOrder.setRequireTime(pendingOrder.getDeadline());
     }
+
     public boolean rejectOrder(HttpDomain httpd) {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
@@ -174,33 +178,33 @@ public class OrderService {
             orderId = Integer.parseInt(orderIdString);
         } catch (Exception e) {
             httpd.setStatus(400);
-            httpd.put("error","请输入正确的订单号");
+            httpd.put("error", "请输入正确的订单号");
             return false;
         }
         PendingOrder pendingOrder = pendingOrderMapper.selectByPrimaryKey(orderId);
 
-        if(pendingOrder == null|| pendingOrder.getServicerId()!=servicerId) {
+        if (pendingOrder == null || pendingOrder.getServicerId() != servicerId) {
             httpd.setStatus(400);
-            httpd.put("error","该订单号无效");
+            httpd.put("error", "该订单号无效");
             return false;
         }
 
-        if(lockMap.get(pendingOrder.getOrderId())==null) {
+        if (lockMap.get(pendingOrder.getOrderId()) == null) {
             synchronized (OrderService.class) {
-                if(lockMap.get(pendingOrder.getOrderId())==null) {
-                    lockMap.put(pendingOrder.getOrderId(),false);
+                if (lockMap.get(pendingOrder.getOrderId()) == null) {
+                    lockMap.put(pendingOrder.getOrderId(), false);
                     pendingOrderMapper.deleteByPrimaryKey(orderId);
-                    httpd.put("success","拒绝成功");
+                    httpd.put("success", "拒绝成功");
                     return true;
                 } else {
                     httpd.setStatus(400);
-                    httpd.put("error","该订单号无效");
+                    httpd.put("error", "该订单号无效");
                     return false;
                 }
             }
         } else {
             httpd.setStatus(400);
-            httpd.put("error","该订单号无效");
+            httpd.put("error", "该订单号无效");
             return false;
         }
     }
@@ -209,7 +213,7 @@ public class OrderService {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
@@ -219,17 +223,17 @@ public class OrderService {
             orderId = Integer.parseInt(orderIdString);
         } catch (Exception e) {
             httpd.setStatus(400);
-            httpd.put("error","请输入正确的订单号");
+            httpd.put("error", "请输入正确的订单号");
             return false;
         }
         AcceptedOrder acceptedOrder = acceptedOrderMapper.selectByPrimaryKey(orderId);
 
-        if(acceptedOrder == null|| acceptedOrder.getServicerId()!=servicerId) {
-            httpd.put("error","该订单号无效");
+        if (acceptedOrder == null || acceptedOrder.getServicerId() != servicerId) {
+            httpd.put("error", "该订单号无效");
             httpd.setStatus(400);
             return false;
-        } else if(acceptedOrder.getOrderState().equals(OrderState.HANDLED.getState())) {
-            httpd.put("error","该订单已被处理");
+        } else if (acceptedOrder.getOrderState().equals(OrderState.HANDLED.getState())) {
+            httpd.put("error", "该订单已被处理");
             httpd.setStatus(400);
             return false;
         } else {
@@ -238,12 +242,12 @@ public class OrderService {
     }
 
     public boolean handleOrder(HttpDomain httpd) {
-        if(!checkHandle(httpd)) {
+        if (!checkHandle(httpd)) {
             return false;
         }
         Integer orderIdString = Integer.parseInt(httpd.request.getParameter("orderId"));
         AcceptedOrder acceptedOrder = acceptedOrderMapper.selectByPrimaryKey(orderIdString);
-        //check the input
+        // check the input
         String serviceLcName = httpd.request.getParameter("serviceLcName");
         String marchantAdd = httpd.request.getParameter("marchantAdd");
         String urgency = httpd.request.getParameter("urgency");
@@ -259,70 +263,70 @@ public class OrderService {
         String serviceRequire = httpd.request.getParameter("serviceRequire");
         String serviceTimes = httpd.request.getParameter("serviceTimes");
 
-        if(serviceLcName == null || !CheckString.stringLengthcheck(serviceLcName,1,10)) {
-            httpd.put("error","请输入服务大类信息");
+        if (serviceLcName == null || !CheckString.stringLengthcheck(serviceLcName, 1, 10)) {
+            httpd.put("error", "请输入服务大类信息");
             httpd.setStatus(400);
             return false;
         }
-        if(marchantAdd == null || !CheckString.stringLengthcheck(marchantAdd,1,20)) {
-            httpd.put("error","请输入商家服务点信息");
+        if (marchantAdd == null || !CheckString.stringLengthcheck(marchantAdd, 1, 20)) {
+            httpd.put("error", "请输入商家服务点信息");
             httpd.setStatus(400);
             return false;
         }
         OrderUrgency orderUrgency = OrderUrgency.getOrderUrgency(urgency);
-        if(orderUrgency == null) {
-            httpd.put("error","请输入正确的工单紧急程度信息");
+        if (orderUrgency == null) {
+            httpd.put("error", "请输入正确的工单紧急程度信息");
             httpd.setStatus(400);
             return false;
         }
-        if(orderSource == null || !CheckString.stringLengthcheck(orderSource,1,10)) {
-            httpd.put("error","请输入正确的工单来源信息");
+        if (orderSource == null || !CheckString.stringLengthcheck(orderSource, 1, 10)) {
+            httpd.put("error", "请输入正确的工单来源信息");
             httpd.setStatus(400);
             return false;
         }
         OrderServiceMode orderServiceMode = OrderServiceMode.getOrderServiceMode(serviceMode);
-        if(orderServiceMode == null) {
-            httpd.put("error","请输入正确的服务方式信息");
+        if (orderServiceMode == null) {
+            httpd.put("error", "请输入正确的服务方式信息");
             httpd.setStatus(400);
             return false;
         }
-        if(serviceProName == null || !CheckString.stringLengthcheck(serviceProName,1,10)) {
-            httpd.put("error","请输入正确的服务方名称信息");
+        if (serviceProName == null || !CheckString.stringLengthcheck(serviceProName, 1, 10)) {
+            httpd.put("error", "请输入正确的服务方名称信息");
             httpd.setStatus(400);
             return false;
         }
-        if(servicePhone == null || !CheckString.stringLengthcheck(servicePhone,1,20)) {
-            httpd.put("error","请输入正确的服务电话信息");
+        if (servicePhone == null || !CheckString.stringLengthcheck(servicePhone, 1, 20)) {
+            httpd.put("error", "请输入正确的服务电话信息");
             httpd.setStatus(400);
             return false;
         }
-        if(serviceCharge == null || !CheckString.stringLengthcheck(serviceCharge,1,10)) {
-            httpd.put("error","请输入正确的服务单价信息");
+        if (serviceCharge == null || !CheckString.stringLengthcheck(serviceCharge, 1, 10)) {
+            httpd.put("error", "请输入正确的服务单价信息");
             httpd.setStatus(400);
             return false;
         }
-        if(serviceDuration == null || !CheckString.stringLengthcheck(serviceDuration,1,10)) {
-            httpd.put("error","请输入正确的服务时长信息");
+        if (serviceDuration == null || !CheckString.stringLengthcheck(serviceDuration, 1, 10)) {
+            httpd.put("error", "请输入正确的服务时长信息");
             httpd.setStatus(400);
             return false;
         }
-        if(serviceCount == null || !CheckString.stringLengthcheck(serviceCount,1,10)) {
-            httpd.put("error","请输入正确的服务总价信息");
+        if (serviceCount == null || !CheckString.stringLengthcheck(serviceCount, 1, 10)) {
+            httpd.put("error", "请输入正确的服务总价信息");
             httpd.setStatus(400);
             return false;
         }
-        if(servicePersonname == null || !CheckString.stringLengthcheck(servicePersonname,1,10)) {
-            httpd.put("error","请输入正确的服务人员姓名信息");
+        if (servicePersonname == null || !CheckString.stringLengthcheck(servicePersonname, 1, 10)) {
+            httpd.put("error", "请输入正确的服务人员姓名信息");
             httpd.setStatus(400);
             return false;
         }
-        if(servicePersonphone == null || !CheckString.stringLengthcheck(servicePersonphone,1,20)) {
-            httpd.put("error","请输入正确的服务人员电话信息");
+        if (servicePersonphone == null || !CheckString.stringLengthcheck(servicePersonphone, 1, 20)) {
+            httpd.put("error", "请输入正确的服务人员电话信息");
             httpd.setStatus(400);
             return false;
         }
-        if(serviceRequire == null || !CheckString.stringLengthcheck(serviceRequire,1,100)) {
-            httpd.put("error","请输入正确的服务要求信息");
+        if (serviceRequire == null || !CheckString.stringLengthcheck(serviceRequire, 1, 100)) {
+            httpd.put("error", "请输入正确的服务要求信息");
             httpd.setStatus(400);
             return false;
         }
@@ -330,7 +334,7 @@ public class OrderService {
         try {
             serviceTimesInt = Integer.parseInt(serviceTimes);
         } catch (NumberFormatException e) {
-            httpd.put("error","请输入正确的服务次数信息");
+            httpd.put("error", "请输入正确的服务次数信息");
             httpd.setStatus(400);
             return false;
         }
@@ -349,22 +353,22 @@ public class OrderService {
         acceptedOrder.setServiceRequire(serviceRequire);
         acceptedOrder.setServiceTimes(serviceTimesInt);
         acceptedOrder.setOrderState(OrderState.HANDLED.getState());
-        if(lockMap.get(acceptedOrder.getOrderId())==null) {
+        if (lockMap.get(acceptedOrder.getOrderId()) == null) {
             synchronized (OrderService.class) {
-                if(lockMap.get(acceptedOrder.getOrderId())==null) {
-                    lockMap.put(acceptedOrder.getOrderId(),true);
+                if (lockMap.get(acceptedOrder.getOrderId()) == null) {
+                    lockMap.put(acceptedOrder.getOrderId(), true);
                     acceptedOrderMapper.updateByPrimaryKeySelective(acceptedOrder);
-                    httpd.put("success","处理成功");
+                    httpd.put("success", "处理成功");
                     return true;
                 } else {
                     httpd.setStatus(400);
-                    httpd.put("error","该订单号无效");
+                    httpd.put("error", "该订单号无效");
                     return false;
                 }
             }
         } else {
             httpd.setStatus(400);
-            httpd.put("error","该订单号无效");
+            httpd.put("error", "该订单号无效");
             return false;
         }
     }
