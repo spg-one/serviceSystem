@@ -126,7 +126,7 @@ public class OrderService {
             httpd.put("error","该订单号无效");
             return false;
         }
-
+ 
         if(lockMap.get(pendingOrder.getOrderId())==null) {
             synchronized (OrderService.class) {
                 if(lockMap.get(pendingOrder.getOrderId())==null) {
