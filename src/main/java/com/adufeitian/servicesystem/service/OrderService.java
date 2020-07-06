@@ -55,6 +55,9 @@ public class OrderService {
         Integer servicerId = (Integer) httpd.session.getAttribute("servicerId");
         AcceptedOrderExample example = new AcceptedOrderExample();
         example.createCriteria().andServicerIdEqualTo(servicerId).andOrderStateEqualTo(OrderState.ACCEPTED.getState());
+        AcceptedOrderExample example2 = new AcceptedOrderExample();
+        
+        example.or(example2.createCriteria().andServicerIdEqualTo(servicerId).andOrderStateEqualTo(OrderState.PROCESSING.getState()));
         List res = acceptedOrderMapper.selectByExample(example);
         httpd.put("acceptedOrders", res);
         return true;
@@ -371,6 +374,18 @@ public class OrderService {
             httpd.put("error", "该订单号无效");
             return false;
         }
+    }
+
+    public boolean setServicePerson(HttpDomain httpd) {
+        Integer orderIdString = Integer.parseInt(httpd.request.getParameter("orderId"));
+        String servicePersonname = httpd.request.getParameter("servicePersonname");
+        String orderState = httpd.request.getParameter("orderState");
+        AcceptedOrder orderToUpdate =new AcceptedOrder();
+        orderToUpdate.setOrderId(orderIdString);
+        orderToUpdate.setServicePersonname(servicePersonname);
+        orderToUpdate.setOrderState(orderState);
+        acceptedOrderMapper.updateByPrimaryKeySelective(orderToUpdate);
+        return true;
     }
 
 }

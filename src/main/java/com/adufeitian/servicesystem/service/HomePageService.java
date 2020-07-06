@@ -2,6 +2,7 @@ package com.adufeitian.servicesystem.service;
 
 import com.adufeitian.servicesystem.config.MySessionContext;
 import com.adufeitian.servicesystem.config.argumentResolver.HttpDomain;
+import com.adufeitian.servicesystem.enums.OrderState;
 import com.adufeitian.servicesystem.mybatis.domain.AcceptedOrder;
 import com.adufeitian.servicesystem.mybatis.domain.PendingOrder;
 import com.adufeitian.servicesystem.mybatis.domain.PendingOrderExample;
@@ -92,7 +93,7 @@ public class HomePageService {
        newItem.setRequireTime(pendingOrderToAccept.getDeadline());
        newItem.setPhone(pendingOrderToAccept.getPhone());
        newItem.setServiceScName(pendingOrderToAccept.getServiceName());
-       newItem.setOrderState("accepted");
+       newItem.setOrderState(OrderState.ACCEPTED.getState());
        acceptedOrderMapper.insert(newItem);
       return true;
    }

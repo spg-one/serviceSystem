@@ -249,4 +249,12 @@ public class OrderController {
         orderService.handleOrder(httpd);
         return httpd.getResponseBody();
     }
+
+    @PostMapping("set-service-person")
+    @ResponseBody
+    @HttpDomainArgument
+    public HashMap setPerson(HttpDomain httpd) {
+        orderService.setServicePerson(httpd);
+        return httpd.getResponseBody();
+    }
 }
