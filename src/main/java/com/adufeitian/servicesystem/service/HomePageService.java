@@ -8,9 +8,16 @@ import com.adufeitian.servicesystem.mybatis.domain.PendingOrder;
 import com.adufeitian.servicesystem.mybatis.domain.PendingOrderExample;
 import com.adufeitian.servicesystem.mybatis.domain.PersonalInfor;
 import com.adufeitian.servicesystem.mybatis.domain.PersonalInforExample;
+import com.adufeitian.servicesystem.mybatis.domain.ServiceInfor;
+import com.adufeitian.servicesystem.mybatis.domain.ServiceInforExample;
+import com.adufeitian.servicesystem.mybatis.domain.ServiceSmallCategoryExample;
+import com.adufeitian.servicesystem.mybatis.domain.ServicerInforExample;
 import com.adufeitian.servicesystem.mybatis.mapper.AcceptedOrderMapper;
 import com.adufeitian.servicesystem.mybatis.mapper.PendingOrderMapper;
 import com.adufeitian.servicesystem.mybatis.mapper.PersonalInforMapper;
+import com.adufeitian.servicesystem.mybatis.mapper.ServiceInforMapper;
+import com.adufeitian.servicesystem.mybatis.mapper.ServiceSmallCategoryMapper;
+import com.adufeitian.servicesystem.mybatis.mapper.ServicerInforMapper;
 import com.adufeitian.servicesystem.security.PasswordCipher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,12 +37,17 @@ public class HomePageService {
     private PendingOrderMapper pendingOrderMapper;
     @Autowired
     private AcceptedOrderMapper acceptedOrderMapper;
+    @Autowired
+    private ServiceSmallCategoryMapper serviceSmallCategoryMapper;
+    @Autowired
+    private ServiceInforMapper serviceInforMapper;
+    @Autowired
+    private ServicerInforMapper servicerInforMapper;
 
-    //获取首页上的服务商个人信息
+    // 获取首页上的服务商个人信息
     public boolean getPersonalInfo(final HttpDomain httpd) {
         // 通过Session获取personId
-       
-        
+
         final Integer personId = (Integer) httpd.session.getAttribute("personId");
 
         // 通过personId获取个人信息
@@ -52,7 +64,7 @@ public class HomePageService {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
         if (personId == null) {
             httpd.setStatus(400);
-            httpd.put("error","请登录");
+            httpd.put("error", "请登录");
             return false;
         }
 
@@ -64,13 +76,13 @@ public class HomePageService {
         final List<PendingOrder> pendingOrders = pendingOrderMapper.selectByExample(pendingOrderExample);
 
         Date date = new Date();
-        
+
         // 获取该服务商的全部待处理工单
         for (final PendingOrder pendingOrder : pendingOrders) {
             final HashMap pendingOrderMap = new HashMap<>();
             pendingOrderMap.put("order_id", pendingOrder.getOrderId());
             pendingOrderMap.put("service_add", pendingOrder.getServiceAdd());
-            pendingOrderMap.put("dispatch_time",pendingOrder.getDispatchTime().toString());
+            pendingOrderMap.put("dispatch_time", pendingOrder.getDispatchTime().toString());
             pendingOrderMap.put("customer_name", pendingOrder.getCustomerName());
             pendingOrderMap.put("phone", pendingOrder.getPhone());
             pendingOrderMap.put("service_name", pendingOrder.getServiceName());
@@ -80,27 +92,57 @@ public class HomePageService {
         return true;
     }
 
-   public boolean acceptPendingOrder(HttpDomain httpd) {
-       Integer order_id = Integer.parseInt(httpd.request.getParameter("order_id"));
-       PendingOrder pendingOrderToAccept = pendingOrderMapper.selectByPrimaryKey(order_id);
-       pendingOrderMapper.deleteByPrimaryKey(order_id);
-       AcceptedOrder newItem = new AcceptedOrder();
-       newItem.setOrderId(pendingOrderToAccept.getOrderId());
-       newItem.setServicerId(pendingOrderToAccept.getServicerId());
-       newItem.setCustomerName(pendingOrderToAccept.getCustomerName());
-       newItem.setServiceAdd(pendingOrderToAccept.getServiceAdd());
-       newItem.setOrderTime(pendingOrderToAccept.getDispatchTime());
-       newItem.setRequireTime(pendingOrderToAccept.getDeadline());
-       newItem.setPhone(pendingOrderToAccept.getPhone());
-       newItem.setServiceScName(pendingOrderToAccept.getServiceName());
-       newItem.setOrderState(OrderState.ACCEPTED.getState());
-       acceptedOrderMapper.insert(newItem);
-      return true;
-   }
+    public boolean acceptPendingOrder(HttpDomain httpd) {
+        Integer order_id = Integer.parseInt(httpd.request.getParameter("order_id"));
+        PendingOrder pendingOrderToAccept = pendingOrderMapper.selectByPrimaryKey(order_id);
+        pendingOrderMapper.deleteByPrimaryKey(order_id);
+        AcceptedOrder newItem = new AcceptedOrder();
+        newItem.setOrderId(pendingOrderToAccept.getOrderId());
+        newItem.setServicerId(pendingOrderToAccept.getServicerId());
+        newItem.setCustomerName(pendingOrderToAccept.getCustomerName());
+        newItem.setServiceAdd(pendingOrderToAccept.getServiceAdd());
+        newItem.setOrderTime(pendingOrderToAccept.getDispatchTime());
+        newItem.setRequireTime(pendingOrderToAccept.getDeadline());
+        newItem.setPhone(pendingOrderToAccept.getPhone());
+        newItem.setServiceScName(pendingOrderToAccept.getServiceName());
+        newItem.setOrderState(OrderState.ACCEPTED.getState());
 
-   public boolean refusePendingOrder(HttpDomain httpd) {
-    Integer order_id = Integer.parseInt(httpd.request.getParameter("order_id"));
-    pendingOrderMapper.deleteByPrimaryKey(order_id);
-   return true;
-}
+        ServiceSmallCategoryExample serviceSmallCategoryExample = new ServiceSmallCategoryExample();
+        serviceSmallCategoryExample.createCriteria().andSystemScNameEqualTo(pendingOrderToAccept.getServiceName());
+        String LcName = serviceSmallCategoryMapper.selectByExample(serviceSmallCategoryExample).get(0)
+                .getSystemLcName();
+        if (LcName == null) {
+            return false;
+        }
+        newItem.setServiceLcName(LcName);
+        newItem.setOrderSourse("支付宝");
+
+        ServiceInforExample serviceInforExample = new ServiceInforExample();
+        serviceInforExample.createCriteria().andSystemScNameEqualTo(pendingOrderToAccept.getServiceName());
+        String ServiceMode = serviceInforMapper.selectByExample(serviceInforExample).get(0).getCharge();
+        if (ServiceMode == null) {
+            return false;
+        }
+        newItem.setServiceMode(ServiceMode);
+
+        String ServicerName = servicerInforMapper.selectByPrimaryKey(pendingOrderToAccept.getServicerId()).getServicerName();
+        newItem.setServiceProName(ServicerName);
+
+        String ServicerPhone = servicerInforMapper.selectByPrimaryKey(pendingOrderToAccept.getServicerId()).getServicerPhone();
+        newItem.setServicePhone(ServicerPhone);
+
+        newItem.setServiceRequire("gkd");
+
+        String MarchantAdd = servicerInforMapper.selectByPrimaryKey(pendingOrderToAccept.getServicerId()).getServicerAddress();
+        newItem.setMarchantAdd(MarchantAdd);
+
+        acceptedOrderMapper.insert(newItem);
+        return true;
+    }
+
+    public boolean refusePendingOrder(HttpDomain httpd) {
+        Integer order_id = Integer.parseInt(httpd.request.getParameter("order_id"));
+        pendingOrderMapper.deleteByPrimaryKey(order_id);
+        return true;
+    }
 }

@@ -250,11 +250,5 @@ public class OrderController {
         return httpd.getResponseBody();
     }
 
-    @PostMapping("set-service-person")
-    @ResponseBody
-    @HttpDomainArgument
-    public HashMap setPerson(HttpDomain httpd) {
-        orderService.setServicePerson(httpd);
-        return httpd.getResponseBody();
-    }
+    
 }

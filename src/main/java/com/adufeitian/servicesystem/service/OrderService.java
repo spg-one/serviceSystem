@@ -251,22 +251,22 @@ public class OrderService {
         Integer orderIdString = Integer.parseInt(httpd.request.getParameter("orderId"));
         AcceptedOrder acceptedOrder = acceptedOrderMapper.selectByPrimaryKey(orderIdString);
         // check the input
-        String serviceLcName = httpd.request.getParameter("serviceLcName");
-        String marchantAdd = httpd.request.getParameter("marchantAdd");
+        /* String serviceLcName = httpd.request.getParameter("serviceLcName"); */
+        /* String marchantAdd = httpd.request.getParameter("marchantAdd"); */
         String urgency = httpd.request.getParameter("urgency");
-        String orderSource = httpd.request.getParameter("orderSource");
-        String serviceMode = httpd.request.getParameter("serviceMode");
-        String serviceProName = httpd.request.getParameter("serviceProName");
-        String servicePhone = httpd.request.getParameter("servicePhone");
+        /* String orderSource = httpd.request.getParameter("orderSource"); */
+        /* String serviceMode = httpd.request.getParameter("serviceMode"); */
+        /* String serviceProName = httpd.request.getParameter("serviceProName"); */
+        /* String servicePhone = httpd.request.getParameter("servicePhone"); */
         String serviceCharge = httpd.request.getParameter("serviceCharge");
         String serviceDuration = httpd.request.getParameter("serviceDuration");
         String serviceCount = httpd.request.getParameter("serviceCount");
         String servicePersonname = httpd.request.getParameter("servicePersonname");
         String servicePersonphone = httpd.request.getParameter("servicePersonphone");
-        String serviceRequire = httpd.request.getParameter("serviceRequire");
+        /* String serviceRequire = httpd.request.getParameter("serviceRequire"); */
         String serviceTimes = httpd.request.getParameter("serviceTimes");
 
-        if (serviceLcName == null || !CheckString.stringLengthcheck(serviceLcName, 1, 10)) {
+        /* if (serviceLcName == null || !CheckString.stringLengthcheck(serviceLcName, 1, 10)) {
             httpd.put("error", "请输入服务大类信息");
             httpd.setStatus(400);
             return false;
@@ -275,25 +275,25 @@ public class OrderService {
             httpd.put("error", "请输入商家服务点信息");
             httpd.setStatus(400);
             return false;
-        }
+        } */
         OrderUrgency orderUrgency = OrderUrgency.getOrderUrgency(urgency);
         if (orderUrgency == null) {
             httpd.put("error", "请输入正确的工单紧急程度信息");
             httpd.setStatus(400);
             return false;
         }
-        if (orderSource == null || !CheckString.stringLengthcheck(orderSource, 1, 10)) {
+        /* if (orderSource == null || !CheckString.stringLengthcheck(orderSource, 1, 10)) {
             httpd.put("error", "请输入正确的工单来源信息");
             httpd.setStatus(400);
             return false;
-        }
-        OrderServiceMode orderServiceMode = OrderServiceMode.getOrderServiceMode(serviceMode);
+        } */
+       /*  OrderServiceMode orderServiceMode = OrderServiceMode.getOrderServiceMode(serviceMode);
         if (orderServiceMode == null) {
             httpd.put("error", "请输入正确的服务方式信息");
             httpd.setStatus(400);
             return false;
-        }
-        if (serviceProName == null || !CheckString.stringLengthcheck(serviceProName, 1, 10)) {
+        } */
+        /* if (serviceProName == null || !CheckString.stringLengthcheck(serviceProName, 1, 10)) {
             httpd.put("error", "请输入正确的服务方名称信息");
             httpd.setStatus(400);
             return false;
@@ -302,7 +302,7 @@ public class OrderService {
             httpd.put("error", "请输入正确的服务电话信息");
             httpd.setStatus(400);
             return false;
-        }
+        } */
         if (serviceCharge == null || !CheckString.stringLengthcheck(serviceCharge, 1, 10)) {
             httpd.put("error", "请输入正确的服务单价信息");
             httpd.setStatus(400);
@@ -328,11 +328,11 @@ public class OrderService {
             httpd.setStatus(400);
             return false;
         }
-        if (serviceRequire == null || !CheckString.stringLengthcheck(serviceRequire, 1, 100)) {
+        /* if (serviceRequire == null || !CheckString.stringLengthcheck(serviceRequire, 1, 100)) {
             httpd.put("error", "请输入正确的服务要求信息");
             httpd.setStatus(400);
             return false;
-        }
+        }  */
         Integer serviceTimesInt = null;
         try {
             serviceTimesInt = Integer.parseInt(serviceTimes);
@@ -341,19 +341,19 @@ public class OrderService {
             httpd.setStatus(400);
             return false;
         }
-        acceptedOrder.setServiceLcName(serviceLcName);
-        acceptedOrder.setMarchantAdd(marchantAdd);
+        /* acceptedOrder.setServiceLcName(serviceLcName);
+        acceptedOrder.setMarchantAdd(marchantAdd); */
         acceptedOrder.setUrgency(urgency);
-        acceptedOrder.setOrderSourse(orderSource);
+        /* acceptedOrder.setOrderSourse(orderSource);
         acceptedOrder.setServiceMode(serviceMode);
         acceptedOrder.setServiceProName(serviceProName);
-        acceptedOrder.setServicePhone(servicePhone);
+        acceptedOrder.setServicePhone(servicePhone); */
         acceptedOrder.setServiceCharge(serviceCharge);
         acceptedOrder.setServiceDuration(serviceDuration);
         acceptedOrder.setServiceCount(serviceCount);
         acceptedOrder.setServicePersonname(servicePersonname);
         acceptedOrder.setServicePersonphone(servicePersonphone);
-        acceptedOrder.setServiceRequire(serviceRequire);
+        /* acceptedOrder.setServiceRequire(serviceRequire); */
         acceptedOrder.setServiceTimes(serviceTimesInt);
         acceptedOrder.setOrderState(OrderState.HANDLED.getState());
         if (lockMap.get(acceptedOrder.getOrderId()) == null) {
@@ -387,5 +387,7 @@ public class OrderService {
         acceptedOrderMapper.updateByPrimaryKeySelective(orderToUpdate);
         return true;
     }
+
+   
 
 }
