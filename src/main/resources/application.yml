@@ -14,3 +14,9 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   thymeleaf:
     prefix: classpath:/templates/
+
+
+server:
+  servlet:
+    encoding:
+      force-response: true

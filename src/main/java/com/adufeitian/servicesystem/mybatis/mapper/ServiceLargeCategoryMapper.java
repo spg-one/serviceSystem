@@ -3,8 +3,11 @@ package com.adufeitian.servicesystem.mybatis.mapper;
 import com.adufeitian.servicesystem.mybatis.domain.ServiceLargeCategory;
 import com.adufeitian.servicesystem.mybatis.domain.ServiceLargeCategoryExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface ServiceLargeCategoryMapper {
     long countByExample(ServiceLargeCategoryExample example);
 

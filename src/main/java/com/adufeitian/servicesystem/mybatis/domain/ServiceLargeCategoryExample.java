@@ -1,7 +1,10 @@
 package com.adufeitian.servicesystem.mybatis.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ServiceLargeCategoryExample {
     protected String orderByClause;
