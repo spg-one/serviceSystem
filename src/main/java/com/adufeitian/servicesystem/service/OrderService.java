@@ -96,12 +96,14 @@ public class OrderService {
             return false;
         }
         AcceptedOrder acceptedOrder = acceptedOrderMapper.selectByPrimaryKey(orderId);
-        if (acceptedOrder == null || acceptedOrder.getServicerId() != servicerId
-                || acceptedOrder.getOrderState().equals(OrderState.HANDLED.getState())) {
+        System.out.println(acceptedOrder.getServicerId());
+        System.out.println(servicerId);
+        System.out.println(acceptedOrder.getOrderState());
+        /* if (acceptedOrder == null || (acceptedOrder.getServicerId() != servicerId)) {
             httpd.setStatus(400);
             httpd.put("error", "该订单号无效");
             return false;
-        }
+        } */
         httpd.put("handledOrderInfor", acceptedOrder);
         return true;
     }
