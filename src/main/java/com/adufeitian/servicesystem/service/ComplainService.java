@@ -6,9 +6,9 @@ import com.adufeitian.servicesystem.mybatis.mapper.ComplainInforMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class ComplainService {
@@ -18,31 +18,30 @@ public class ComplainService {
 
     ComplainInforExample complainInforExample = new ComplainInforExample();
 
-    public Map<String,Object> getComplainInforById(int id,String business){
+    public List<ComplainInfor> getComplainInforById(int id, String business, String dealState){
         ComplainInforExample.Criteria criteria = complainInforExample.createCriteria();
         criteria.andComBusinessEqualTo(business);
         criteria.andComplainIdEqualTo(id);
+        criteria.andDealStateEqualTo(dealState);
         List<ComplainInfor> list = complainInforMapper.selectByExample(complainInforExample);
-        Map<String,Object> map = new HashMap<>();
-        for(int i = 0;i<list.size();i++){
-            String num = String.valueOf(i+1);
-            map.put(num,list.get(i));
-        }
-        return map;
+        complainInforExample.clear();
+        return list;
 
     }
 
-    public Map<String,Object> getComplainInforByPerson(String person,String business){
+    public List<ComplainInfor> getComplainInforByPerson(String person, String business, String dealState){
         ComplainInforExample.Criteria criteria = complainInforExample.createCriteria();
         criteria.andComBusinessEqualTo(business);
         criteria.andComPersonEqualTo(person);
+        criteria.andDealStateEqualTo(dealState);
         List<ComplainInfor> list = complainInforMapper.selectByExample(complainInforExample);
-        Map<String,Object> map = new HashMap<>();
-        for(int i = 0;i<list.size();i++){
-            String num = String.valueOf(i+1);
-            map.put(num,list.get(i));
-        }
-        return map;
+        complainInforExample.clear();
+        return list;
+    }
+
+    public List<ComplainInfor> getComInforAll(){
+        List<ComplainInfor> list = complainInforMapper.selectByExample(complainInforExample);
+        return list;
     }
 
 }
