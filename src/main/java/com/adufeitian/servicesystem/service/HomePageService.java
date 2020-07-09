@@ -62,6 +62,7 @@ public class HomePageService {
     // 获取首页上的待处理工单
     public boolean getPendingOrder(final HttpDomain httpd) {
         Integer personId = (Integer) httpd.session.getAttribute("personId");
+        System.out.println(personId);
         if (personId == null) {
             httpd.setStatus(400);
             httpd.put("error", "请登录");

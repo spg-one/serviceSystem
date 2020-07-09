@@ -99,6 +99,7 @@ public class LoginService {
         if (personId != null) {
             logoutActor(httpd, personId);
             httpd.put("success","登出成功");
+            httpd.session.removeAttribute("personId");
             return true;
         } else {
             httpd.setStatus(400);
