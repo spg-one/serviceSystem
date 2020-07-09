@@ -1,6 +1,7 @@
 package com.adufeitian.servicesystem.controller;
 
-import com.adufeitian.servicesystem.mybatis.domain.ComplainInfor;
+
+import com.adufeitian.servicesystem.mybatis.domain.ComplainInforTime;
 import com.adufeitian.servicesystem.service.ComplainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,8 @@ public class ComplainController {
 
     @ResponseBody
     @RequestMapping("/getComInfor")
-    public List<ComplainInfor> getComplainInfor(String idORperson, String business, String dealState){
-        List<ComplainInfor> list;
+    public List<ComplainInforTime> getComplainInfor(String idORperson, String business, String dealState){
+        List<ComplainInforTime> list;
         Object obj = idORperson;
         if(isNumeric((String) obj)){
             list = complainService.getComplainInforById((Integer) obj,business,dealState);
@@ -36,8 +37,8 @@ public class ComplainController {
 
     @ResponseBody
     @RequestMapping("/getComInforAll")
-    public List<ComplainInfor> getComInforAll(){
-        List<ComplainInfor> list = complainService.getComInforAll();
+    public List<ComplainInforTime> getComInforAll(){
+        List<ComplainInforTime> list = complainService.getComInforAll();
         return list;
     }
 
