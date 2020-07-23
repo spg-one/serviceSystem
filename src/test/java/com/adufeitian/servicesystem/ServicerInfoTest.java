@@ -25,7 +25,7 @@ public class ServicerInfoTest {
     @Autowired
     private WebApplicationContext wac;
 
-    @BeforeEach // 在测试开始前初始化工作
+    @BeforeEach // 在测试开始前初始化工作哈哈
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
