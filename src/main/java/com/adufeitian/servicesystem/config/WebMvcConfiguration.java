@@ -2,7 +2,9 @@ package com.adufeitian.servicesystem.config;
 
 import com.adufeitian.servicesystem.config.argumentResolver.HttpDomainArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -18,6 +20,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         super.addArgumentResolvers(argumentResolvers);
         argumentResolvers.add(httpDomainArgumentResolver);
     }
+    @Bean
+    public testBean testbean(){
+        return new testBean();
+    }
+
 }
 
 

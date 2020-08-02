@@ -33,6 +33,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
         Integer personId = (Integer) session.getAttribute("personId");
         if ( personId != null ) {
             msc.delSession(personId,se.getSession().getId());
+            System.out.println("delete session");
         }
     }
 }
