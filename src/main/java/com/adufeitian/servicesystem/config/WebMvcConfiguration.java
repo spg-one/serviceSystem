@@ -14,11 +14,14 @@ import java.util.List;
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Autowired
     private HttpDomainArgumentResolver httpDomainArgumentResolver;
-
+    // static {
+    //     System.out.println("static!");
+    // }
     @Override
     protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         super.addArgumentResolvers(argumentResolvers);
         argumentResolvers.add(httpDomainArgumentResolver);
+        System.out.println("httpDomainArgumentResolver added!");
     }
     @Bean
     public testBean testbean(){

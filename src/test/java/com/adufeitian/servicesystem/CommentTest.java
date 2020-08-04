@@ -24,10 +24,11 @@ public class CommentTest {
 
     @Autowired
     private WebApplicationContext wac;
-
+    
     @BeforeEach // 在测试开始前初始化工作
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        System.out.println("test setup");
     }
 
     @Test // 测试首页中上半部分，即服务商个人信息获取
